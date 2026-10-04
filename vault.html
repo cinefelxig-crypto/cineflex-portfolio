@@ -35,6 +35,7 @@
             font-family: 'Outfit', sans-serif;
             min-height: 100vh;
             overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
         }
 
         /* Background */
@@ -54,11 +55,11 @@
             position: fixed;
             top: 0; left: 0; right: 0;
             z-index: 100;
-            padding: 1.2rem 2rem;
+            padding: 1rem 1.5rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(5,5,5,0.8);
+            background: rgba(5,5,5,0.85);
             -webkit-backdrop-filter: blur(20px);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
@@ -68,7 +69,7 @@
             font-family: 'Playfair Display', serif;
             font-style: italic;
             color: var(--gold);
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             text-decoration: none;
             letter-spacing: 1px;
         }
@@ -76,13 +77,13 @@
         .back-btn {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1.2rem;
+            gap: 0.4rem;
+            padding: 0.45rem 1rem;
             border: 1px solid var(--border);
             border-radius: 50px;
             color: var(--subtext);
             text-decoration: none;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-family: 'Outfit', sans-serif;
             transition: all 0.3s ease;
             background: transparent;
@@ -98,30 +99,30 @@
         .vault-hero {
             position: relative;
             z-index: 1;
-            padding: 130px 2rem 60px;
+            padding: 110px 1.5rem 50px;
             text-align: center;
         }
 
         .vault-hero .eyebrow {
             display: inline-block;
-            font-size: 0.7rem;
-            letter-spacing: 4px;
+            font-size: 0.65rem;
+            letter-spacing: 3px;
             text-transform: uppercase;
             color: var(--gold);
             border: 1px solid var(--gold-dim);
-            padding: 0.4rem 1.2rem;
+            padding: 0.35rem 1rem;
             border-radius: 50px;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             background: var(--gold-dim);
         }
 
         .vault-hero h1 {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-size: clamp(3.5rem, 8vw, 7rem);
+            font-size: clamp(2.8rem, 8vw, 7rem);
             line-height: 1.05;
             color: var(--text);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
             background: linear-gradient(135deg, #fff 0%, var(--gold) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -129,19 +130,20 @@
         }
 
         .vault-hero p {
-            font-size: clamp(1rem, 2vw, 1.2rem);
+            font-size: clamp(0.95rem, 2vw, 1.2rem);
             color: var(--subtext);
             max-width: 600px;
             margin: 0 auto 1rem;
             line-height: 1.7;
             font-weight: 300;
+            padding: 0 0.5rem;
         }
 
         .hero-stats {
             display: flex;
-            gap: 3rem;
+            gap: 2rem;
             justify-content: center;
-            margin-top: 2.5rem;
+            margin-top: 2rem;
             flex-wrap: wrap;
         }
 
@@ -150,14 +152,14 @@
         }
 
         .hero-stats .stat-num {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 700;
             color: var(--gold);
             display: block;
         }
 
         .hero-stats .stat-label {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             letter-spacing: 2px;
             text-transform: uppercase;
             color: var(--subtext);
@@ -169,21 +171,22 @@
             z-index: 1;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 2rem 4rem;
+            padding: 0 1.5rem 3rem;
         }
 
         .section-label {
             display: flex;
             align-items: center;
             gap: 1rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .section-label span {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             letter-spacing: 4px;
             text-transform: uppercase;
             color: var(--gold);
+            white-space: nowrap;
         }
 
         .section-label::after {
@@ -195,7 +198,7 @@
 
         .featured-card {
             position: relative;
-            border-radius: 24px;
+            border-radius: 20px;
             overflow: hidden;
             background: var(--surface);
             border: 1px solid var(--gold-dim);
@@ -205,11 +208,7 @@
         .featured-inner {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            min-height: 520px;
-        }
-
-        @media (max-width: 768px) {
-            .featured-inner { grid-template-columns: 1fr; }
+            min-height: 480px;
         }
 
         .featured-video-wrap {
@@ -217,7 +216,8 @@
             background: #000;
             aspect-ratio: 9/16;
             max-height: 540px;
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.9);
+            cursor: pointer;
+            overflow: hidden;
         }
 
         .featured-video-wrap::after {
@@ -226,12 +226,12 @@
             top: 14px;
             right: 14px;
             z-index: 10;
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             font-weight: 800;
             letter-spacing: 1.5px;
             color: #000;
             background: linear-gradient(135deg, var(--gold), #ffffff);
-            padding: 0.3rem 0.6rem;
+            padding: 0.25rem 0.5rem;
             border-radius: 4px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.7);
             pointer-events: none;
@@ -243,15 +243,66 @@
             border: none;
             display: block;
             filter: contrast(1.05) saturate(1.06) brightness(1.02);
-            image-rendering: -webkit-optimize-contrast;
+        }
+
+        /* Featured play overlay */
+        .featured-play-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 5;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .featured-play-overlay:hover {
+            background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 50%, transparent 100%);
+        }
+
+        .featured-play-overlay .play-btn-big {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: rgba(212,175,55,0.25);
+            border: 2px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .featured-play-overlay:hover .play-btn-big {
+            transform: scale(1.1);
+            background: rgba(212,175,55,0.4);
+        }
+
+        .featured-play-overlay .play-btn-big svg {
+            color: var(--gold);
+            width: 28px;
+            height: 28px;
+            margin-left: 3px;
+        }
+
+        .featured-play-overlay .play-text {
+            margin-top: 0.8rem;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.8);
         }
 
         .featured-info {
-            padding: 3rem;
+            padding: 2.5rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            gap: 1.5rem;
+            gap: 1.2rem;
             background: linear-gradient(135deg, rgba(212,175,55,0.04), transparent);
         }
 
@@ -259,7 +310,7 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             letter-spacing: 3px;
             text-transform: uppercase;
             color: var(--gold);
@@ -275,7 +326,7 @@
         }
 
         .featured-info h2 {
-            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            font-size: clamp(1.6rem, 3vw, 2.4rem);
             font-weight: 700;
             line-height: 1.2;
             color: var(--text);
@@ -288,7 +339,7 @@
         }
 
         .featured-info .caption {
-            font-size: 1.05rem;
+            font-size: 0.95rem;
             color: var(--subtext);
             line-height: 1.7;
             font-weight: 300;
@@ -299,12 +350,12 @@
         .featured-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 0.4rem;
         }
 
         .tag {
-            font-size: 0.7rem;
-            padding: 0.3rem 0.8rem;
+            font-size: 0.65rem;
+            padding: 0.25rem 0.7rem;
             border-radius: 50px;
             border: 1px solid var(--border);
             color: var(--subtext);
@@ -318,149 +369,279 @@
             z-index: 1;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 2rem 6rem;
+            padding: 0 1rem 5rem;
         }
 
         .clips-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        @media (max-width: 600px) {
-            .clips-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+            gap: 1.2rem;
         }
 
         /* CLIP CARD */
         .clip-card {
             position: relative;
-            border-radius: 16px;
+            border-radius: 14px;
             overflow: hidden;
             background: var(--surface);
             border: 1px solid var(--border);
             cursor: pointer;
-            transition: transform 0.4s cubic-bezier(0.16,1,0.3,1),
-                        box-shadow 0.4s ease,
-                        border-color 0.3s ease;
-            group: true;
+            transition: transform 0.35s cubic-bezier(0.16,1,0.3,1),
+                        box-shadow 0.35s ease,
+                        border-color 0.35s ease;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .clip-card:hover {
-            transform: translateY(-8px) scale(1.01);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 30px rgba(212,175,55,0.1);
-            border-color: rgba(212,175,55,0.4);
+        @media (hover: hover) {
+            .clip-card:hover {
+                transform: translateY(-6px) scale(1.01);
+                box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 25px rgba(212,175,55,0.12);
+                border-color: rgba(212,175,55,0.4);
+            }
+        }
+
+        @media (hover: none) {
+            .clip-card:active {
+                transform: scale(0.97);
+                border-color: rgba(212,175,55,0.5);
+            }
         }
 
         .clip-number {
             position: absolute;
-            top: 12px;
-            left: 12px;
+            top: 10px;
+            left: 10px;
             z-index: 10;
-            font-size: 0.65rem;
+            font-size: 0.55rem;
             font-weight: 700;
             letter-spacing: 2px;
             color: var(--gold);
-            background: rgba(0,0,0,0.6);
+            background: rgba(0,0,0,0.7);
             -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
             border: 1px solid var(--gold-dim);
-            padding: 0.3rem 0.6rem;
-            border-radius: 6px;
+            padding: 0.2rem 0.45rem;
+            border-radius: 5px;
         }
 
-        .clip-video-wrap {
-            position: relative;
-            aspect-ratio: 9/16;
-            background: #000;
-            overflow: hidden;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
-        }
-
-        .clip-video-wrap::after {
-            content: '4K HDR';
+        .clip-quality-badge {
             position: absolute;
-            top: 12px;
-            right: 12px;
-            z-index: 9;
-            font-size: 0.58rem;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+            font-size: 0.5rem;
             font-weight: 800;
             letter-spacing: 1px;
             color: #000;
             background: linear-gradient(135deg, var(--gold), #ffffff);
-            padding: 0.2rem 0.5rem;
+            padding: 0.15rem 0.4rem;
             border-radius: 4px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.6);
             pointer-events: none;
         }
 
-        .clip-video-wrap iframe {
+        .clip-thumb-wrap {
+            position: relative;
+            aspect-ratio: 9/16;
+            background: #0a0a0a;
+            overflow: hidden;
+        }
+
+        /* Thumbnail placeholder with play icon */
+        .clip-thumb-wrap .thumb-bg {
             width: 100%;
             height: 100%;
-            border: none;
-            display: block;
-            pointer-events: auto;
-            transition: transform 0.6s ease, filter 0.3s ease;
-            filter: contrast(1.05) saturate(1.06) brightness(1.02);
-            image-rendering: -webkit-optimize-contrast;
-            transform: translateZ(0);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(160deg, #111 0%, #080808 50%, #111 100%);
+            position: relative;
         }
 
-        .clip-card:hover .clip-video-wrap iframe {
-            transform: scale(1.03);
-            pointer-events: auto;
-        }
-
-        /* Overlay shown by default, hidden on hover */
-        .clip-overlay {
+        .clip-thumb-wrap .thumb-bg::before {
+            content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
-            display: flex;
-            align-items: flex-end;
-            padding: 1rem;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
+            background: radial-gradient(circle at center, rgba(212,175,55,0.06), transparent 70%);
         }
 
-        .clip-card:hover .clip-overlay {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .play-hint {
+        /* Play button circle */
+        .play-btn-circle {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: rgba(212,175,55,0.15);
+            border: 2px solid var(--gold);
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            color: rgba(255,255,255,0.7);
-            font-size: 0.75rem;
-            letter-spacing: 1px;
+            justify-content: center;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            transition: transform 0.25s ease, background 0.25s ease;
+            z-index: 2;
         }
 
-        .play-hint svg {
+        .clip-card:hover .play-btn-circle,
+        .clip-card:active .play-btn-circle {
+            transform: scale(1.1);
+            background: rgba(212,175,55,0.35);
+        }
+
+        .play-btn-circle svg {
             color: var(--gold);
+            width: 20px;
+            height: 20px;
+            margin-left: 2px;
+        }
+
+        .play-label {
+            margin-top: 0.6rem;
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+            z-index: 2;
         }
 
         /* Caption below card */
         .clip-caption {
-            padding: 1rem 1.2rem;
+            padding: 0.75rem 0.9rem;
             border-top: 1px solid var(--border);
-            background: rgba(0,0,0,0.3);
+            background: rgba(0,0,0,0.4);
         }
 
         .clip-caption .clip-title {
-            font-size: 0.82rem;
+            font-size: 0.78rem;
             font-weight: 600;
             color: var(--text);
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
             line-height: 1.3;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .clip-caption .clip-line {
-            font-size: 0.72rem;
+            font-size: 0.65rem;
             color: var(--subtext);
-            line-height: 1.5;
+            line-height: 1.4;
             font-weight: 300;
             font-style: italic;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* ══════════════════════════════════════
+           FULLSCREEN VIDEO MODAL
+        ══════════════════════════════════════ */
+        #videoModal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: rgba(0,0,0,0.97);
+            align-items: center;
+            justify-content: center;
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            touch-action: none;
+        }
+
+        #videoModal.open {
+            display: flex;
+            animation: modalIn 0.35s cubic-bezier(0.16,1,0.3,1) forwards;
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.92); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #modalFrame {
+            width: min(100vw, calc(100vh * 9/16));
+            height: min(100vh, calc(100vw * 16/9));
+            max-width: 480px;
+            max-height: 100vh;
+            border: none;
+            border-radius: 0;
+            display: block;
+            filter: contrast(1.05) saturate(1.06) brightness(1.02);
+        }
+
+        @media (min-width: 600px) {
+            #modalFrame {
+                border-radius: 16px;
+                box-shadow: 0 0 80px rgba(212,175,55,0.2);
+            }
+        }
+
+        .modal-close {
+            position: fixed;
+            top: max(16px, env(safe-area-inset-top, 16px));
+            right: 16px;
+            z-index: 100000;
+            width: 44px;
+            height: 44px;
+            background: rgba(0,0,0,0.8);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50%;
+            color: #fff;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .modal-close:hover, .modal-close:active {
+            background: rgba(212,175,55,0.4);
+            transform: scale(1.1);
+        }
+
+        .modal-title {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem 1.5rem calc(1.5rem + env(safe-area-inset-bottom, 0px));
+            background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
+            color: #fff;
+            text-align: center;
+            pointer-events: none;
+            z-index: 100000;
+        }
+
+        .modal-badge {
+            display: inline-block;
+            font-size: 0.5rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: #000;
+            background: linear-gradient(135deg, var(--gold), #fff);
+            padding: 0.15rem 0.45rem;
+            border-radius: 4px;
+            margin-bottom: 0.35rem;
+        }
+
+        .modal-title-text {
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: block;
         }
 
         /* FOOTER */
@@ -468,13 +649,14 @@
             position: relative;
             z-index: 1;
             text-align: center;
-            padding: 4rem 2rem;
+            padding: 3rem 1.5rem;
             border-top: 1px solid var(--border);
         }
 
         .vault-footer p {
             color: var(--subtext);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
+            line-height: 1.6;
         }
 
         .vault-footer a {
@@ -493,12 +675,170 @@
         /* Scroll reveal */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
+            transform: translateY(25px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
         .reveal.visible {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* ══════════════════════════════════════
+           MOBILE RESPONSIVE OVERRIDES
+        ══════════════════════════════════════ */
+        @media (max-width: 900px) {
+            .featured-inner {
+                grid-template-columns: 1fr;
+            }
+            .featured-video-wrap {
+                max-height: 420px;
+            }
+            .featured-info {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .vault-nav {
+                padding: 0.8rem 1rem;
+            }
+            .vault-hero {
+                padding: 100px 1rem 40px;
+            }
+            .vault-hero h1 {
+                font-size: clamp(2.4rem, 10vw, 3.5rem);
+            }
+            .featured-section {
+                padding: 0 1rem 2.5rem;
+            }
+            .clips-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.6rem;
+            }
+            .grid-section {
+                padding: 0 0.6rem 4rem;
+            }
+            .clip-caption {
+                padding: 0.6rem 0.7rem;
+            }
+            .clip-caption .clip-title {
+                font-size: 0.7rem;
+            }
+            .clip-caption .clip-line {
+                font-size: 0.58rem;
+                -webkit-line-clamp: 1;
+            }
+            .clip-number {
+                font-size: 0.5rem;
+                padding: 0.15rem 0.35rem;
+                top: 6px;
+                left: 6px;
+            }
+            .clip-quality-badge {
+                font-size: 0.42rem;
+                padding: 0.12rem 0.3rem;
+                top: 6px;
+                right: 6px;
+            }
+            .play-btn-circle {
+                width: 42px;
+                height: 42px;
+            }
+            .play-btn-circle svg {
+                width: 16px;
+                height: 16px;
+            }
+            .play-label {
+                font-size: 0.5rem;
+            }
+            .clip-card {
+                border-radius: 10px;
+            }
+            .section-label {
+                margin-bottom: 1rem;
+                padding: 0 0.2rem;
+            }
+            .featured-card {
+                border-radius: 14px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .clips-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+                max-width: 320px;
+                margin: 0 auto;
+            }
+        }
+
+        /* Loading spinner for modal */
+        .modal-loading {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: -1;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(212,175,55,0.2);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 3rem 1.5rem 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            color: var(--text);
+            margin: 1.5rem 0 1rem;
+        }
+
+        .cta-section p {
+            color: var(--subtext);
+            max-width: 500px;
+            margin: 0 auto 2rem;
+            line-height: 1.7;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: var(--gold);
+            color: #000;
+            padding: 0.9rem 2.2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
+            box-shadow: 0 10px 40px rgba(212,175,55,0.3);
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 50px rgba(212,175,55,0.4);
         }
     </style>
 </head>
@@ -509,7 +849,7 @@
         <a href="index.html" class="logo">Cineflex</a>
         <a href="index.html" class="back-btn">
             <i data-lucide="arrow-left" style="width:14px;height:14px;"></i>
-            Back to Portfolio
+            Back
         </a>
     </nav>
 
@@ -542,12 +882,18 @@
         </div>
         <div class="featured-card">
             <div class="featured-inner">
-                <div class="featured-video-wrap">
-                    <iframe
-                        src="https://drive.google.com/file/d/1GNUrB3U1DujiSk8WXwHxKNLKXLYm1xqy/preview"
-                        allow="autoplay"
-                        allowfullscreen>
-                    </iframe>
+                <div class="featured-video-wrap" id="featuredWrap"
+                     data-src="https://drive.google.com/file/d/1GNUrB3U1DujiSk8WXwHxKNLKXLYm1xqy/preview"
+                     data-title="The Edit That Stops the Scroll">
+                    <!-- Placeholder — iframe loads on click via modal -->
+                    <div class="thumb-bg">
+                        <div class="featured-play-overlay">
+                            <div class="play-btn-big">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"></polygon></svg>
+                            </div>
+                            <span class="play-text">Tap to Play</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="featured-info">
                     <div class="featured-badge">Featured Edit — #01</div>
@@ -571,458 +917,15 @@
         <div class="section-label">
             <span>✦ The Collection</span>
         </div>
-        <div class="clips-grid" id="clipsGrid">
-
-            <!-- CLIP 02 -->
-            <div class="clip-card reveal">
-                <div class="clip-number">#02</div>
-                <div class="clip-video-wrap">
-                    <iframe src="https://drive.google.com/file/d/16Ja34YhQm25QYPCqoznCCd2DLQ692_fh/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <div class="clip-overlay">
-                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
-                    </div>
-                </div>
-                <div class="clip-caption">
-                    <div class="clip-title">The Hook Edit</div>
-                    <div class="clip-line">"Color graded to feel. Every cut lands like a heartbeat you didn't know was yours."</div>
-                </div>
-            </div>
-
-            <!-- CLIP 03 -->
-            <div class="clip-card reveal">
-                <div class="clip-number">#03</div>
-                <div class="clip-video-wrap">
-                    <iframe src="https://drive.google.com/file/d/13XhSfdNWuMbf_IMmUbMeAgf8FN8geQOm/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <div class="clip-overlay">
-                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
-                    </div>
-                </div>
-                <div class="clip-caption">
-                    <div class="clip-title">Mood Architect</div>
-                    <div class="clip-line">"Not just an edit — a mood. A moment. A feeling that lingers long after the video ends."</div>
-                </div>
-            </div>
-
-            <!-- CLIP 04 -->
-            <div class="clip-card reveal">
-                <div class="clip-number">#04</div>
-                <div class="clip-video-wrap">
-                    <iframe src="https://drive.google.com/file/d/1jZqSWLFEWzFaQ2U1cVNawgGXEJ4ulssA/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <div class="clip-overlay">
-                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
-                    </div>
-                </div>
-                <div class="clip-caption">
-                    <div class="clip-title">Blink & You'll Miss It</div>
-                    <div class="clip-line">"The hook hit before you blinked. That's not luck — that's six years of pure craft."</div>
-                </div>
-            </div>
-
-            <!-- CLIP 05 -->
-            <div class="clip-card reveal">
-                <div class="clip-number">#05</div>
-                <div class="clip-video-wrap">
-                    <iframe src="https://drive.google.com/file/d/1-WEpFTWOG8ZCBwq_YI0mK0UaurBCzMUv/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <div class="clip-overlay">
-                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
-                    </div>
-                </div>
-                <div class="clip-caption">
-                    <div class="clip-title">Transitions Are Storytelling</div>
-                    <div class="clip-line">"Transitions aren't tricks. They're the invisible thread that makes viewers forget they're watching."</div>
-                </div>
-            </div>
-
-            <!-- CLIP 06 -->
-            <div class="clip-card reveal">
-                <div class="clip-number">#06</div>
-                <div class="clip-video-wrap">
-                    <iframe src="https://drive.google.com/file/d/1Z7gfcWvU6i3t0eV2IMK7PgjRWQnxL6Gk/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <div class="clip-overlay">
-                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
-                    </div>
-                </div>
-                <div class="clip-caption">
-                    <div class="clip-title">Six Years in Seconds</div>
-                    <div class="clip-line">"Six years of obsession compressed into seconds. Every frame is a decision, not an accident."</div>
-                </div>
-            </div>
-
-            <!-- CLIP 07 -->
-            <div class="clip-card reveal">
-                <div class="clip-number">#07</div>
-                <div class="clip-video-wrap">
-                    <iframe src="https://drive.google.com/file/d/1XhGdu-BJn4tzoOASzW3iNNoH0jN9hbS3/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <div class="clip-overlay">
-                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
-                    </div>
-                </div>
-                <div class="clip-caption">
-                    <div class="clip-title">Rhythm & Vision</div>
-                    <div class="clip-line">"This is what happens when rhythm meets vision — the edit breathes, pulses, and hits."</div>
-                </div>
-            </div>
-
-            <!-- CLIP 08 -->
-            <div class="clip-card reveal">
-                <div class="clip-number">#08</div>
-                <div class="clip-video-wrap">
-                    <iframe src="https://drive.google.com/file/d/1wYIHB_lIGXuxXGOKmenFEoqGGnA1rVTg/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <div class="clip-overlay">
-                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
-                    </div>
-                </div>
-                <div class="clip-caption">
-                    <div class="clip-title">Made to Rewatch</div>
-                    <div class="clip-line">"Made to be rewatched. Built to be felt. The kind of edit you save and share without thinking."</div>
-                </div>
-            </div>
-
-            <!-- CLIP 09 -->
-            <div class="clip-card reveal">
-                <div class="clip-number">#09</div>
-                <div class="clip-video-wrap">
-                    <iframe src="https://drive.google.com/file/d/1HSicCZPG589ybax5HlRiZ0z5VCFh8zzv/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <div class="clip-overlay">
-                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
-                    </div>
-                </div>
-                <div class="clip-caption">
-                    <div class="clip-title">The Scroll Stopper</div>
-                    <div class="clip-line">"The scroll stops here. Every. Single. Time. Not by accident — by design."</div>
-                </div>
-            </div>
-
-            <!-- CLIP 10 -->
-            <div class="clip-card reveal">
-                <div class="clip-number">#10</div>
-                <div class="clip-video-wrap">
-                    <iframe src="https://drive.google.com/file/d/1hCu_sd8RwsQEXhmD716Z4--Whu24U8ZH/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <div class="clip-overlay">
-                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
-                    </div>
-                </div>
-                <div class="clip-caption">
-                    <div class="clip-title">Raw Becomes Art</div>
-                    <div class="clip-line">"Raw footage becomes art. The transformation happens in the edit — and this is the proof."</div>
-                </div>
-            </div>
-
-            <!-- CLIP 11 -->
-            <div class="clip-card reveal">
-                <div class="clip-number">#11</div>
-                <div class="clip-video-wrap">
-                    <iframe src="https://drive.google.com/file/d/1QJHIzX-hPNXCo_Kb7QPIUjZ6Vq4QKrLO/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <div class="clip-overlay">
-                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
-                    </div>
-                </div>
-                <div class="clip-caption">
-                    <div class="clip-title">Sound Meets Soul</div>
-                    <div class="clip-line">"Sound design meets visual flow. When the music drops and the cut lands — goosebumps."</div>
-                </div>
-            </div>
-
-            <!-- CLIP 12 -->
-            <div class="clip-card reveal">
-                <div class="clip-number">#12</div>
-                <div class="clip-video-wrap">
-                    <iframe src="https://drive.google.com/file/d/13HFZAGE9lhYiTrLRXiloFdH0hz0JQ0q0/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <div class="clip-overlay">
-                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
-                    </div>
-                </div>
-                <div class="clip-caption">
-                    <div class="clip-title">Effortless Pacing</div>
-                    <div class="clip-line">"Pacing so clean, it feels effortless. It isn't. It took years to make hard look this easy."</div>
-                </div>
-            </div>
-
-            <!-- CLIP 13 -->
-            <div class="clip-card reveal">
-                <div class="clip-number">#13</div>
-                <div class="clip-video-wrap">
-                    <iframe src="https://drive.google.com/file/d/1W4AkIhmezYIfXgqur52DCteVYQP5hz64/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <div class="clip-overlay">
-                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
-                    </div>
-                </div>
-                <div class="clip-caption">
-                    <div class="clip-title">No Filler, Just Fire</div>
-                    <div class="clip-line">"Every frame earns its place. No filler, just fire. This is what zero-compromise editing looks like."</div>
-                </div>
-            </div>
-
-            <!-- CLIP 14 -->
-            <div class="clip-card reveal">
-                <div class="clip-number">#14</div>
-                <div class="clip-video-wrap">
-                    <iframe src="https://drive.google.com/file/d/1ldqs9D9rYx2qAYzT2x-Al0LYxnLaC4Dj/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <div class="clip-overlay">
-                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
-                    </div>
-                </div>
-                <div class="clip-caption">
-                    <div class="clip-title">Creator Fuel</div>
-                    <div class="clip-line">"The kind of edit that makes creators lean in and say 'I need this for my content.' Every time."</div>
-                </div>
-            </div>
-
-            <!-- CLIP 15 -->
-            <div class="clip-card reveal">
-                <div class="clip-number">#15</div>
-                <div class="clip-video-wrap">
-                    <iframe src="https://drive.google.com/file/d/1jNTBVpBo8DKozkYCKm1ce2Gx6iBWAgYB/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <div class="clip-overlay">
-                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
-                    </div>
-                </div>
-                <div class="clip-caption">
-                    <div class="clip-title">Speed & Silence</div>
-                    <div class="clip-line">"Slow it down, speed it up — the story always hits. Contrast is the language of the edit."</div>
-                </div>
-            </div>
-
-            <!-- CLIP 16 -->
-            <div class="clip-card reveal">
-                <div class="clip-number">#16</div>
-                <div class="clip-video-wrap">
-                    <iframe src="https://drive.google.com/file/d/1-Zhr1HJnOEo9d7xlqaPg4Jdxg2cfZ8S2/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <div class="clip-overlay">
-                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
-                    </div>
-                </div>
-                <div class="clip-caption">
-                    <div class="clip-title">Unbroken Vibe</div>
-                    <div class="clip-line">"From one second to the next, the vibe never breaks. The energy flows like it was always meant to."</div>
-                </div>
-            </div>
-
-            <!-- CLIP 17 -->
-            <div class="clip-card reveal">
-                <div class="clip-number">#17</div>
-                <div class="clip-video-wrap">
-                    <iframe src="https://drive.google.com/file/d/1kleSJ1ZIw9EZOG8KC8PmLnP1HqSq9hQu/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <div class="clip-overlay">
-                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
-                    </div>
-                </div>
-                <div class="clip-caption">
-                    <div class="clip-title">Engineered, Not Edited</div>
-                    <div class="clip-line">"This wasn't edited. It was engineered — every element calculated to create maximum impact."</div>
-                </div>
-            </div>
-
-            <!-- CLIP 18 -->
-            <div class="clip-card reveal">
-                <div class="clip-number">#18</div>
-                <div class="clip-video-wrap">
-                    <iframe src="https://drive.google.com/file/d/1DsGcOcmBB1I4fxHlReedcUA_fn52SBCB/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <div class="clip-overlay">
-                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
-                    </div>
-                </div>
-                <div class="clip-caption">
-                    <div class="clip-title">Cinema Lives Here</div>
-                    <div class="clip-line">"Cinema lives in the details. And every detail here is intentional, purposeful, and precise."</div>
-                </div>
-            </div>
-
-            <!-- CLIP 19 -->
-            <div class="clip-card reveal">
-                <div class="clip-number">#19</div>
-                <div class="clip-video-wrap">
-                    <iframe src="https://drive.google.com/file/d/1Xay03KB5tsSxMmVwirK3NCJnDlLfavkC/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <div class="clip-overlay">
-                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
-                    </div>
-                </div>
-                <div class="clip-caption">
-                    <div class="clip-title">The Perfect Short</div>
-                    <div class="clip-line">"Hook. Hold. Hit. The anatomy of a perfect short-form edit — executed flawlessly."</div>
-                </div>
-            </div>
-
-            <!-- CLIP 20 -->
-            <div class="clip-card reveal">
-                <div class="clip-number">#20</div>
-                <div class="clip-video-wrap">
-                    <iframe src="https://drive.google.com/file/d/1VAO8EfHgLlITsuig1gKbJ63W7Pf9wtS_/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <div class="clip-overlay">
-                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
-                    </div>
-                </div>
-                <div class="clip-caption">
-                    <div class="clip-title">The Seamless Cut</div>
-                    <div class="clip-line">"When the cut is so smooth, they forget it happened. That's mastery — invisible and unforgettable."</div>
-                </div>
-            </div>
-
-            <!-- CLIP 21 -->
-            <div class="clip-card reveal">
-                <div class="clip-number">#21</div>
-                <div class="clip-video-wrap">
-                    <iframe src="https://drive.google.com/file/d/1oz4GZa0_Whl0TMparr5lnZ9LjjCz4Kdt/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <div class="clip-overlay">
-                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
-                    </div>
-                </div>
-                <div class="clip-caption">
-                    <div class="clip-title">Energy in Every Frame</div>
-                    <div class="clip-line">"Energy in every frame. And silence that speaks louder than anything words could say."</div>
-                </div>
-            </div>
-
-            <!-- CLIP 22 -->
-            <div class="clip-card reveal">
-                <div class="clip-number">#22</div>
-                <div class="clip-video-wrap">
-                    <iframe src="https://drive.google.com/file/d/1PNeHyoieCI2Ajq-ckTit8E840_RZKNPY/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <div class="clip-overlay">
-                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
-                    </div>
-                </div>
-                <div class="clip-caption">
-                    <div class="clip-title">Aesthetic Is the Message</div>
-                    <div class="clip-line">"The aesthetic is the message. When it looks this good, you don't need to say anything."</div>
-                </div>
-            </div>
-
-            <!-- CLIP 23 -->
-            <div class="clip-card reveal">
-                <div class="clip-number">#23</div>
-                <div class="clip-video-wrap">
-                    <iframe src="https://drive.google.com/file/d/1sFH5XrtXtk3FsMeRaexcymU7gcrap7Tz/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <div class="clip-overlay">
-                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
-                    </div>
-                </div>
-                <div class="clip-caption">
-                    <div class="clip-title">Short Form. Long Impact.</div>
-                    <div class="clip-line">"Short form. Long impact. Zero compromise. This is what happens when you refuse to settle."</div>
-                </div>
-            </div>
-
-            <!-- CLIP 24 -->
-            <div class="clip-card reveal">
-                <div class="clip-number">#24</div>
-                <div class="clip-video-wrap">
-                    <iframe src="https://drive.google.com/file/d/1AjcQRcLhJ4zRCZN39ySBghE3b4y5gZgB/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <div class="clip-overlay">
-                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
-                    </div>
-                </div>
-                <div class="clip-caption">
-                    <div class="clip-title">3 Seconds to 30</div>
-                    <div class="clip-line">"Crafted for the 3-second attention span. Held for 30. The hook is just the beginning."</div>
-                </div>
-            </div>
-
-            <!-- CLIP 25 -->
-            <div class="clip-card reveal">
-                <div class="clip-number">#25</div>
-                <div class="clip-video-wrap">
-                    <iframe src="https://drive.google.com/file/d/1p3zom_eQhzLXb6Wn1l8dqO9mCNTWKpAw/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <div class="clip-overlay">
-                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
-                    </div>
-                </div>
-                <div class="clip-caption">
-                    <div class="clip-title">What 6 Years Looks Like</div>
-                    <div class="clip-line">"This is what 6 years looks like in motion. Not a portfolio piece — a statement of intent."</div>
-                </div>
-            </div>
-
-            <!-- CLIP 26 -->
-            <div class="clip-card reveal">
-                <div class="clip-number">#26</div>
-                <div class="clip-video-wrap">
-                    <iframe src="https://drive.google.com/file/d/1J_9_6QGezP8ENZ8xVCRbtvmaIeXLmosv/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <div class="clip-overlay">
-                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
-                    </div>
-                </div>
-                <div class="clip-caption">
-                    <div class="clip-title">The Holy Trinity</div>
-                    <div class="clip-line">"Color. Cut. Cadence. The holy trinity of short-form editing — and this clip has all three."</div>
-                </div>
-            </div>
-
-            <!-- CLIP 27 -->
-            <div class="clip-card reveal">
-                <div class="clip-number">#27</div>
-                <div class="clip-video-wrap">
-                    <iframe src="https://drive.google.com/file/d/1U-CjgRihirifj4DRQVRZEI_wGw3ohl1x/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <div class="clip-overlay">
-                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
-                    </div>
-                </div>
-                <div class="clip-caption">
-                    <div class="clip-title">Built for Virality</div>
-                    <div class="clip-line">"Built for virality. Designed for longevity. The rare edit that's trending today and timeless tomorrow."</div>
-                </div>
-            </div>
-
-            <!-- CLIP 28 -->
-            <div class="clip-card reveal">
-                <div class="clip-number">#28</div>
-                <div class="clip-video-wrap">
-                    <iframe src="https://drive.google.com/file/d/1tZ0raKa9-ZN18T6RfSw2lj7AHyYFSpT2/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <div class="clip-overlay">
-                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
-                    </div>
-                </div>
-                <div class="clip-caption">
-                    <div class="clip-title">You Didn't Know You Needed This</div>
-                    <div class="clip-line">"The edit you didn't know you needed. Until now. Now you can't imagine your feed without it."</div>
-                </div>
-            </div>
-
-            <!-- CLIP 29 -->
-            <div class="clip-card reveal">
-                <div class="clip-number">#29</div>
-                <div class="clip-video-wrap">
-                    <iframe src="https://drive.google.com/file/d/1STGa0c4w5Ow1gs3LaT2_pileP5g6hkkb/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <div class="clip-overlay">
-                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
-                    </div>
-                </div>
-                <div class="clip-caption">
-                    <div class="clip-title">Precision Over Perfection</div>
-                    <div class="clip-line">"Precision over perfection. Vibe over volume. This is editing with intention and soul."</div>
-                </div>
-            </div>
-
-            <!-- CLIP 30 -->
-            <div class="clip-card reveal">
-                <div class="clip-number">#30</div>
-                <div class="clip-video-wrap">
-                    <iframe src="https://drive.google.com/file/d/1W2XD8HABa1FF2XEgiyUfuNswtwB-AXO_/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <div class="clip-overlay">
-                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
-                    </div>
-                </div>
-                <div class="clip-caption">
-                    <div class="clip-title">The Vault Doesn't Miss</div>
-                    <div class="clip-line">"Last frame, first impression. Every clip in this vault was chosen because it doesn't miss. Ever."</div>
-                </div>
-            </div>
-
-        </div>
+        <div class="clips-grid" id="clipsGrid"></div>
     </section>
 
     <!-- CTA -->
-    <section style="text-align:center; padding: 3rem 2rem 5rem; position:relative; z-index:1;">
+    <section class="cta-section">
         <div class="gold-divider"></div>
-        <h2 style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(2rem,4vw,3rem); color:var(--text); margin: 1.5rem 0 1rem;">
-            Ready to Elevate Your Content?
-        </h2>
-        <p style="color:var(--subtext); max-width:500px; margin:0 auto 2rem; line-height:1.7;">
-            Every clip you just watched was crafted with obsession. Your content deserves the same treatment.
-        </p>
-        <a href="index.html#contact" style="display:inline-flex; align-items:center; gap:0.8rem; background:var(--gold); color:#000; padding:1rem 2.5rem; border-radius:50px; font-weight:700; text-decoration:none; font-size:1rem; letter-spacing:1px; transition: all 0.3s ease; box-shadow: 0 10px 40px rgba(212,175,55,0.3);"
-           onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 20px 50px rgba(212,175,55,0.4)'"
-           onmouseout="this.style.transform=''; this.style.boxShadow='0 10px 40px rgba(212,175,55,0.3)'">
+        <h2>Ready to Elevate Your Content?</h2>
+        <p>Every clip you just watched was crafted with obsession. Your content deserves the same treatment.</p>
+        <a href="index.html#contact" class="cta-btn">
             <i data-lucide="message-circle" style="width:18px;height:18px;"></i>
             Let's Work Together
         </a>
@@ -1033,23 +936,184 @@
         <p>© 2026 <a href="index.html">Cineflex</a> — Short-Form Excellence &nbsp;|&nbsp; Made with ♥ by <a href="https://instagram.com/Gagan_praj310" target="_blank">@Gagan_praj310</a></p>
     </footer>
 
+    <!-- ══════════════════════════════════════
+         FULLSCREEN VIDEO MODAL
+    ══════════════════════════════════════ -->
+    <div id="videoModal">
+        <div class="modal-inner">
+            <div class="modal-loading"><div class="spinner"></div></div>
+            <iframe id="modalFrame" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+        <button class="modal-close" id="modalCloseBtn" aria-label="Close video">✕</button>
+        <div class="modal-title">
+            <span class="modal-badge">4K HDR</span>
+            <span class="modal-title-text" id="modalTitleText"></span>
+        </div>
+    </div>
+
     <script>
+        // ── Clips Data ─────────────────────────────────
+        const clips = [
+            { id: '16Ja34YhQm25QYPCqoznCCd2DLQ692_fh', num: '#02', title: 'The Hook Edit', line: '"Color graded to feel. Every cut lands like a heartbeat you didn\'t know was yours."' },
+            { id: '13XhSfdNWuMbf_IMmUbMeAgf8FN8geQOm', num: '#03', title: 'Mood Architect', line: '"Not just an edit — a mood. A moment. A feeling that lingers long after the video ends."' },
+            { id: '1jZqSWLFEWzFaQ2U1cVNawgGXEJ4ulssA', num: '#04', title: 'Blink & You\'ll Miss It', line: '"The hook hit before you blinked. That\'s not luck — that\'s six years of pure craft."' },
+            { id: '1-WEpFTWOG8ZCBwq_YI0mK0UaurBCzMUv', num: '#05', title: 'Transitions Are Storytelling', line: '"Transitions aren\'t tricks. They\'re the invisible thread that makes viewers forget they\'re watching."' },
+            { id: '1Z7gfcWvU6i3t0eV2IMK7PgjRWQnxL6Gk', num: '#06', title: 'Six Years in Seconds', line: '"Six years of obsession compressed into seconds. Every frame is a decision, not an accident."' },
+            { id: '1XhGdu-BJn4tzoOASzW3iNNoH0jN9hbS3', num: '#07', title: 'Rhythm & Vision', line: '"This is what happens when rhythm meets vision — the edit breathes, pulses, and hits."' },
+            { id: '1wYIHB_lIGXuxXGOKmenFEoqGGnA1rVTg', num: '#08', title: 'Made to Rewatch', line: '"Made to be rewatched. Built to be felt. The kind of edit you save and share without thinking."' },
+            { id: '1HSicCZPG589ybax5HlRiZ0z5VCFh8zzv', num: '#09', title: 'The Scroll Stopper', line: '"The scroll stops here. Every. Single. Time. Not by accident — by design."' },
+            { id: '1hCu_sd8RwsQEXhmD716Z4--Whu24U8ZH', num: '#10', title: 'Raw Becomes Art', line: '"Raw footage becomes art. The transformation happens in the edit — and this is the proof."' },
+            { id: '1QJHIzX-hPNXCo_Kb7QPIUjZ6Vq4QKrLO', num: '#11', title: 'Sound Meets Soul', line: '"Sound design meets visual flow. When the music drops and the cut lands — goosebumps."' },
+            { id: '13HFZAGE9lhYiTrLRXiloFdH0hz0JQ0q0', num: '#12', title: 'Effortless Pacing', line: '"Pacing so clean, it feels effortless. It isn\'t. It took years to make hard look this easy."' },
+            { id: '1W4AkIhmezYIfXgqur52DCteVYQP5hz64', num: '#13', title: 'No Filler, Just Fire', line: '"Every frame earns its place. No filler, just fire. This is what zero-compromise editing looks like."' },
+            { id: '1ldqs9D9rYx2qAYzT2x-Al0LYxnLaC4Dj', num: '#14', title: 'Creator Fuel', line: '"The kind of edit that makes creators lean in and say \'I need this for my content.\' Every time."' },
+            { id: '1jNTBVpBo8DKozkYCKm1ce2Gx6iBWAgYB', num: '#15', title: 'Speed & Silence', line: '"Slow it down, speed it up — the story always hits. Contrast is the language of the edit."' },
+            { id: '1-Zhr1HJnOEo9d7xlqaPg4Jdxg2cfZ8S2', num: '#16', title: 'Unbroken Vibe', line: '"From one second to the next, the vibe never breaks. The energy flows like it was always meant to."' },
+            { id: '1kleSJ1ZIw9EZOG8KC8PmLnP1HqSq9hQu', num: '#17', title: 'Engineered, Not Edited', line: '"This wasn\'t edited. It was engineered — every element calculated to create maximum impact."' },
+            { id: '1DsGcOcmBB1I4fxHlReedcUA_fn52SBCB', num: '#18', title: 'Cinema Lives Here', line: '"Cinema lives in the details. And every detail here is intentional, purposeful, and precise."' },
+            { id: '1Xay03KB5tsSxMmVwirK3NCJnDlLfavkC', num: '#19', title: 'The Perfect Short', line: '"Hook. Hold. Hit. The anatomy of a perfect short-form edit — executed flawlessly."' },
+            { id: '1VAO8EfHgLlITsuig1gKbJ63W7Pf9wtS_', num: '#20', title: 'The Seamless Cut', line: '"When the cut is so smooth, they forget it happened. That\'s mastery — invisible and unforgettable."' },
+            { id: '1oz4GZa0_Whl0TMparr5lnZ9LjjCz4Kdt', num: '#21', title: 'Energy in Every Frame', line: '"Energy in every frame. And silence that speaks louder than anything words could say."' },
+            { id: '1PNeHyoieCI2Ajq-ckTit8E840_RZKNPY', num: '#22', title: 'Aesthetic Is the Message', line: '"The aesthetic is the message. When it looks this good, you don\'t need to say anything."' },
+            { id: '1sFH5XrtXtk3FsMeRaexcymU7gcrap7Tz', num: '#23', title: 'Short Form. Long Impact.', line: '"Short form. Long impact. Zero compromise. This is what happens when you refuse to settle."' },
+            { id: '1AjcQRcLhJ4zRCZN39ySBghE3b4y5gZgB', num: '#24', title: '3 Seconds to 30', line: '"Crafted for the 3-second attention span. Held for 30. The hook is just the beginning."' },
+            { id: '1p3zom_eQhzLXb6Wn1l8dqO9mCNTWKpAw', num: '#25', title: 'What 6 Years Looks Like', line: '"This is what 6 years looks like in motion. Not a portfolio piece — a statement of intent."' },
+            { id: '1J_9_6QGezP8ENZ8xVCRbtvmaIeXLmosv', num: '#26', title: 'The Holy Trinity', line: '"Color. Cut. Cadence. The holy trinity of short-form editing — and this clip has all three."' },
+            { id: '1U-CjgRihirifj4DRQVRZEI_wGw3ohl1x', num: '#27', title: 'Built for Virality', line: '"Built for virality. Designed for longevity. The rare edit that\'s trending today and timeless tomorrow."' },
+            { id: '1tZ0raKa9-ZN18T6RfSw2lj7AHyYFSpT2', num: '#28', title: 'You Didn\'t Know You Needed This', line: '"The edit you didn\'t know you needed. Until now. Now you can\'t imagine your feed without it."' },
+            { id: '1STGa0c4w5Ow1gs3LaT2_pileP5g6hkkb', num: '#29', title: 'Precision Over Perfection', line: '"Precision over perfection. Vibe over volume. This is editing with intention and soul."' },
+            { id: '1W2XD8HABa1FF2XEgiyUfuNswtwB-AXO_', num: '#30', title: 'The Vault Doesn\'t Miss', line: '"Last frame, first impression. Every clip in this vault was chosen because it doesn\'t miss. Ever."' }
+        ];
+
+        // ── Build Grid (NO iframes until clicked — zero lag) ───
+        const grid = document.getElementById('clipsGrid');
+        const fragment = document.createDocumentFragment();
+
+        clips.forEach((clip, i) => {
+            const card = document.createElement('div');
+            card.className = 'clip-card reveal';
+            card.dataset.src = `https://drive.google.com/file/d/${clip.id}/preview`;
+            card.dataset.title = clip.title;
+            card.innerHTML = `
+                <div class="clip-number">${clip.num}</div>
+                <div class="clip-thumb-wrap">
+                    <div class="clip-quality-badge">4K HDR</div>
+                    <div class="thumb-bg">
+                        <div class="play-btn-circle">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"></polygon></svg>
+                        </div>
+                        <span class="play-label">Tap to Play</span>
+                    </div>
+                </div>
+                <div class="clip-caption">
+                    <div class="clip-title">${clip.title}</div>
+                    <div class="clip-line">${clip.line}</div>
+                </div>
+            `;
+            fragment.appendChild(card);
+        });
+
+        grid.appendChild(fragment);
+
+        // ── Init Lucide Icons ──────────────────────────
         lucide.createIcons();
 
-        // Scroll reveal animation
+        // ── Scroll Reveal ──────────────────────────────
         const reveals = document.querySelectorAll('.reveal');
-        const observer = new IntersectionObserver((entries) => {
+        const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach((entry, i) => {
                 if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('visible');
-                    }, (i % 4) * 80);
-                    observer.unobserve(entry.target);
+                    setTimeout(() => entry.target.classList.add('visible'), (i % 6) * 50);
+                    revealObserver.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+        reveals.forEach(el => revealObserver.observe(el));
 
-        reveals.forEach(el => observer.observe(el));
+        // ── Fullscreen Video Modal ─────────────────────
+        const modal      = document.getElementById('videoModal');
+        const modalFrame = document.getElementById('modalFrame');
+        const modalTitle = document.getElementById('modalTitleText');
+        const closeBtn   = document.getElementById('modalCloseBtn');
+
+        function openModal(src, title) {
+            const url = src.includes('?') ? src + '&autoplay=1' : src + '?autoplay=1';
+            modalFrame.src = url;
+            if (modalTitle) modalTitle.textContent = title || '';
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+
+            // Try native fullscreen on touch devices
+            if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+                if (modal.requestFullscreen) {
+                    modal.requestFullscreen().catch(() => {});
+                } else if (modal.webkitRequestFullscreen) {
+                    modal.webkitRequestFullscreen();
+                }
+            }
+        }
+
+        function closeModal() {
+            modal.classList.remove('open');
+            modalFrame.src = '';
+            document.body.style.overflow = '';
+            if (document.fullscreenElement) {
+                document.exitFullscreen().catch(() => {});
+            } else if (document.webkitFullscreenElement) {
+                document.webkitExitFullscreen();
+            }
+        }
+
+        // Close button
+        closeBtn.addEventListener('click', closeModal);
+
+        // Close on backdrop tap
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal || e.target.classList.contains('modal-inner')) closeModal();
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+        // Exit fullscreen also closes modal
+        document.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement && modal.classList.contains('open')) {
+                closeModal();
+            }
+        });
+        document.addEventListener('webkitfullscreenchange', () => {
+            if (!document.webkitFullscreenElement && modal.classList.contains('open')) {
+                closeModal();
+            }
+        });
+
+        // ── Wire up ALL clip cards ─────────────────────
+        document.querySelectorAll('.clip-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const src   = card.dataset.src;
+                const title = card.dataset.title;
+                if (src) openModal(src, title);
+            });
+        });
+
+        // ── Wire up Featured clip ──────────────────────
+        const featuredWrap = document.getElementById('featuredWrap');
+        if (featuredWrap) {
+            featuredWrap.addEventListener('click', () => {
+                openModal(featuredWrap.dataset.src, featuredWrap.dataset.title);
+            });
+        }
+
+        // ── Swipe down to close modal (mobile) ─────────
+        let touchStartY = 0;
+        modal.addEventListener('touchstart', e => {
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+
+        modal.addEventListener('touchend', e => {
+            const diff = e.changedTouches[0].clientY - touchStartY;
+            if (diff > 100) closeModal(); // Swipe down more than 100px
+        }, { passive: true });
     </script>
 </body>
 </html>
