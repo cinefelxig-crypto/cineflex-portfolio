@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#202c33">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Chat with Dikshit Parihar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --wa-bg: #0b141a;
+            --wa-header: #202c33;
+            --wa-incoming: #202c33;
+            --wa-outgoing: #005c4b;
+            --wa-text: #e9edef;
+            --wa-subtext: #8696a0;
+            --wa-accent: #00a884;
+            --gold-accent: #d4af37;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+        }
+
+        body {
+            background-color: var(--wa-bg);
+            color: var(--wa-text);
+            display: flex;
+            flex-direction: column;
+            touch-action: manipulation;
+        }
+
+        /* Header */
+        .chat-header {
+            background-color: var(--wa-header);
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+        .back-btn {
+            color: var(--wa-text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            background-color: var(--gold-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .header-info {
+            flex: 1;
+        }
+
+        .header-info h2 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .header-info span {
+            font-size: 0.8rem;
+            color: var(--wa-subtext);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 20px;
+            color: var(--wa-subtext);
+        }
+
+        /* Chat Area */
+        .chat-area {
+            flex: 1;
+            padding: 20px 5%;
+            overflow-y: auto;
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Dark overlay for readability */
+        .chat-area::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(11, 20, 26, 0.9);
+            z-index: 0;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 8px 12px;
+            border-radius: 8px;
+            position: relative;
+            z-index: 1;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+        }
+
+        .msg-incoming {
+            background-color: var(--wa-incoming);
+            align-self: flex-start;
+            border-top-left-radius: 0;
+        }
+
+        .msg-outgoing {
+            background-color: var(--wa-outgoing);
+            align-self: flex-end;
+            border-top-right-radius: 0;
+            display: none; /* Hidden until user sends */
+        }
+
+        .msg-time {
+            font-size: 0.65rem;
+            color: var(--wa-subtext);
+            float: right;
+            margin-top: 5px;
+            margin-left: 15px;
+        }
+
+        .msg-outgoing .msg-time {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Input Area */
+        .chat-input-container {
+            background-color: var(--wa-header);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .icon-btn {
+            color: var(--wa-subtext);
+            cursor: pointer;
+            background: none;
+            border: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .icon-btn:hover {
+            color: var(--wa-text);
+        }
+
+        .chat-input {
+            flex: 1;
+            background-color: #2a3942;
+            border: none;
+            padding: 12px 15px;
+            border-radius: 24px;
+            color: var(--wa-text);
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .chat-input::placeholder {
+            color: var(--wa-subtext);
+        }
+
+        .send-btn {
+            background-color: var(--wa-accent);
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="chat-header">
+        <a href="index.html" class="back-btn">
+            <i data-lucide="arrow-left"></i>
+        </a>
+        <div class="profile-pic">DK</div>
+        <div class="header-info">
+            <h2>Dikshit</h2>
+            <span>Online</span>
+        </div>
+        <div class="header-actions">
+            <i data-lucide="video"></i>
+            <i data-lucide="phone"></i>
+            <i data-lucide="more-vertical"></i>
+        </div>
+    </header>
+
+    <div class="chat-area" id="chatArea">
+        <div class="message msg-incoming">
+            Hey! Thanks for reaching out. Are you looking to elevate your content with some premium editing? Let me know what you have in mind!
+            <span class="msg-time" id="time1">12:00 PM</span>
+        </div>
+        
+        <div class="message msg-outgoing" id="userMsg">
+            <span id="userText"></span>
+            <span class="msg-time" id="time2">12:01 PM</span>
+        </div>
+    </div>
+
+    <div class="chat-input-container">
+        <button class="icon-btn"><i data-lucide="smile"></i></button>
+        <button class="icon-btn"><i data-lucide="paperclip"></i></button>
+        
+        <input type="text" id="msgInput" class="chat-input" placeholder="Type a message..." onkeypress="handleKeyPress(event)">
+        
+        <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+            <i data-lucide="send" size="18"></i>
+        </button>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-database-compat.js"></script>
+    <script>
+        lucide.createIcons();
+
+        // Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyD6jLHrDtHKLyZf6bqOjyNhlwgLBwt6p1U",
+            authDomain: "cineflex-chat.firebaseapp.com",
+            projectId: "cineflex-chat",
+            storageBucket: "cineflex-chat.firebasestorage.app",
+            messagingSenderId: "191605481586",
+            appId: "1:191605481586:web:3f69657ca659c0e157a2eb"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        // Set current time for initial message
+        const now = new Date();
+        const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        document.getElementById('time1').innerText = timeString;
+
+        function handleKeyPress(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function renderMessages(messages) {
+            const chatArea = document.getElementById('chatArea');
+            
+            // Default greeting
+            chatArea.innerHTML = `
+                <div class="message msg-incoming">
+                    Hey! Thanks for reaching out. Are you looking to elevate your content with some premium editing? Let me know what you have in mind!
+                    <span class="msg-time">12:00 PM</span>
+                </div>
+            `;
+            
+            messages.forEach(msg => {
+                const div = document.createElement('div');
+                div.className = msg.sender === 'client' ? 'message msg-outgoing' : 'message msg-incoming';
+                div.style.display = 'block';
+                div.innerHTML = `${msg.text} <span class="msg-time">${msg.time}</span>`;
+                chatArea.appendChild(div);
+            });
+            
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+
+        // Get or create a unique ID for this client so they get their own chat session
+        let clientId = localStorage.getItem('cineflex_clientId');
+        if (!clientId) {
+            clientId = 'client_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
+            localStorage.setItem('cineflex_clientId', clientId);
+        }
+
+        // Listen to Firebase database changes in real-time for THIS specific client
+        db.ref('chats/' + clientId + '/messages').on('value', (snapshot) => {
+            const data = snapshot.val();
+            const messages = [];
+            if (data) {
+                Object.keys(data).forEach(key => {
+                    messages.push({id: key, ...data[key]});
+                });
+            }
+            renderMessages(messages);
+        });
+
+        function sendMessage() {
+            const input = document.getElementById('msgInput');
+            const text = input.value.trim();
+            
+            if (text !== '') {
+                // Update the last active time for the admin list
+                db.ref('chats/' + clientId).update({
+                    lastUpdated: firebase.database.ServerValue.TIMESTAMP
+                });
+                
+                // Save the actual message to this client's unique chat thread
+                db.ref('chats/' + clientId + '/messages').push({
+                    text: text,
+                    time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+                    sender: 'client',
+                    timestamp: firebase.database.ServerValue.TIMESTAMP
+                });
+                
+                input.value = '';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#050505">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>The Vault | Cineflex — Premium Short-Form Edits</title>
+    <meta name="description" content="6 years of mastery. A curated collection of premium short-form video edits.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&family=Playfair+Display:ital,wght@1,600;1,700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --gold: #d4af37;
+            --gold-dim: rgba(212,175,55,0.12);
+            --gold-glow: rgba(212,175,55,0.3);
+            --bg: #050505;
+            --surface: rgba(255,255,255,0.03);
+            --glass: rgba(255,255,255,0.05);
+            --border: rgba(255,255,255,0.08);
+            --text: #f0f0f0;
+            --subtext: #888;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Background */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 50% at 20% 20%, rgba(212,175,55,0.04) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 80% 80%, rgba(212,175,55,0.03) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* NAV */
+        .vault-nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 1.2rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(5,5,5,0.8);
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .vault-nav .logo {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--gold);
+            font-size: 1.4rem;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.2rem;
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            color: var(--subtext);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.3s ease;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* HERO */
+        .vault-hero {
+            position: relative;
+            z-index: 1;
+            padding: 130px 2rem 60px;
+            text-align: center;
+        }
+
+        .vault-hero .eyebrow {
+            display: inline-block;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            border: 1px solid var(--gold-dim);
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            margin-bottom: 2rem;
+            background: var(--gold-dim);
+        }
+
+        .vault-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            line-height: 1.05;
+            color: var(--text);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff 0%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .vault-hero p {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: var(--subtext);
+            max-width: 600px;
+            margin: 0 auto 1rem;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            justify-content: center;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-stats .stat {
+            text-align: center;
+        }
+
+        .hero-stats .stat-num {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold);
+            display: block;
+        }
+
+        .hero-stats .stat-label {
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--subtext);
+        }
+
+        /* FEATURED CLIP */
+        .featured-section {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        .section-label {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-label span {
+            font-size: 0.65rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, var(--gold-dim), transparent);
+        }
+
+        .featured-card {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            background: var(--surface);
+            border: 1px solid var(--gold-dim);
+            box-shadow: 0 0 60px rgba(212,175,55,0.08), 0 30px 80px rgba(0,0,0,0.6);
+        }
+
+        .featured-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 520px;
+        }
+
+        @media (max-width: 768px) {
+            .featured-inner { grid-template-columns: 1fr; }
+        }
+
+        .featured-video-wrap {
+            position: relative;
+            background: #000;
+            aspect-ratio: 9/16;
+            max-height: 540px;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.9);
+        }
+
+        .featured-video-wrap::after {
+            content: '4K ULTRA HD • 60FPS';
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            z-index: 10;
+            font-size: 0.6rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: #000;
+            background: linear-gradient(135deg, var(--gold), #ffffff);
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.7);
+            pointer-events: none;
+        }
+
+        .featured-video-wrap iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+            filter: contrast(1.05) saturate(1.06) brightness(1.02);
+            image-rendering: -webkit-optimize-contrast;
+        }
+
+        .featured-info {
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1.5rem;
+            background: linear-gradient(135deg, rgba(212,175,55,0.04), transparent);
+        }
+
+        .featured-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .featured-badge::before {
+            content: '';
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--gold);
+            box-shadow: 0 0 10px var(--gold);
+        }
+
+        .featured-info h2 {
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--text);
+        }
+
+        .featured-info h2 em {
+            font-style: italic;
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .featured-info .caption {
+            font-size: 1.05rem;
+            color: var(--subtext);
+            line-height: 1.7;
+            font-weight: 300;
+            border-left: 2px solid var(--gold);
+            padding-left: 1rem;
+        }
+
+        .featured-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            font-size: 0.7rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+            color: var(--subtext);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* GRID */
+        .grid-section {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 6rem;
+        }
+
+        .clips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 600px) {
+            .clips-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+        }
+
+        /* CLIP CARD */
+        .clip-card {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: transform 0.4s cubic-bezier(0.16,1,0.3,1),
+                        box-shadow 0.4s ease,
+                        border-color 0.3s ease;
+            group: true;
+        }
+
+        .clip-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 30px rgba(212,175,55,0.1);
+            border-color: rgba(212,175,55,0.4);
+        }
+
+        .clip-number {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 10;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--gold);
+            background: rgba(0,0,0,0.6);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--gold-dim);
+            padding: 0.3rem 0.6rem;
+            border-radius: 6px;
+        }
+
+        .clip-video-wrap {
+            position: relative;
+            aspect-ratio: 9/16;
+            background: #000;
+            overflow: hidden;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+        }
+
+        .clip-video-wrap::after {
+            content: '4K HDR';
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            z-index: 9;
+            font-size: 0.58rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: #000;
+            background: linear-gradient(135deg, var(--gold), #ffffff);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+            pointer-events: none;
+        }
+
+        .clip-video-wrap iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+            pointer-events: auto;
+            transition: transform 0.6s ease, filter 0.3s ease;
+            filter: contrast(1.05) saturate(1.06) brightness(1.02);
+            image-rendering: -webkit-optimize-contrast;
+            transform: translateZ(0);
+        }
+
+        .clip-card:hover .clip-video-wrap iframe {
+            transform: scale(1.03);
+            pointer-events: auto;
+        }
+
+        /* Overlay shown by default, hidden on hover */
+        .clip-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
+            display: flex;
+            align-items: flex-end;
+            padding: 1rem;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .clip-card:hover .clip-overlay {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .play-hint {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+        }
+
+        .play-hint svg {
+            color: var(--gold);
+        }
+
+        /* Caption below card */
+        .clip-caption {
+            padding: 1rem 1.2rem;
+            border-top: 1px solid var(--border);
+            background: rgba(0,0,0,0.3);
+        }
+
+        .clip-caption .clip-title {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.3rem;
+            line-height: 1.3;
+        }
+
+        .clip-caption .clip-line {
+            font-size: 0.72rem;
+            color: var(--subtext);
+            line-height: 1.5;
+            font-weight: 300;
+            font-style: italic;
+        }
+
+        /* FOOTER */
+        .vault-footer {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 4rem 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .vault-footer p {
+            color: var(--subtext);
+            font-size: 0.85rem;
+        }
+
+        .vault-footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        /* Divider */
+        .gold-divider {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+            margin: 1.5rem auto;
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav class="vault-nav">
+        <a href="index.html" class="logo">Cineflex</a>
+        <a href="index.html" class="back-btn">
+            <i data-lucide="arrow-left" style="width:14px;height:14px;"></i>
+            Back to Portfolio
+        </a>
+    </nav>
+
+    <!-- HERO -->
+    <section class="vault-hero">
+        <div class="eyebrow">✦ The Vault — 30 Edits</div>
+        <h1>Where Every Frame<br>Tells a Story</h1>
+        <p>Six years of relentless craft. Every cut intentional, every frame earned. This is short-form content elevated to art.</p>
+        <div class="gold-divider"></div>
+        <div class="hero-stats">
+            <div class="stat">
+                <span class="stat-num">30</span>
+                <span class="stat-label">Curated Edits</span>
+            </div>
+            <div class="stat">
+                <span class="stat-num">6</span>
+                <span class="stat-label">Years of Mastery</span>
+            </div>
+            <div class="stat">
+                <span class="stat-num">4K</span>
+                <span class="stat-label">Quality</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED CLIP #1 -->
+    <section class="featured-section reveal">
+        <div class="section-label">
+            <span>✦ Signature Edit</span>
+        </div>
+        <div class="featured-card">
+            <div class="featured-inner">
+                <div class="featured-video-wrap">
+                    <iframe
+                        src="https://drive.google.com/file/d/1GNUrB3U1DujiSk8WXwHxKNLKXLYm1xqy/preview"
+                        allow="autoplay"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="featured-info">
+                    <div class="featured-badge">Featured Edit — #01</div>
+                    <h2>The Edit That<br><em>Stops the Scroll.</em></h2>
+                    <p class="caption">
+                        "Where the first frame is a declaration. Built not just to be watched — but to be felt. This is what six years of obsession looks like in motion."
+                    </p>
+                    <div class="featured-tags">
+                        <span class="tag">Cinematic</span>
+                        <span class="tag">Short-Form</span>
+                        <span class="tag">Premium Cut</span>
+                        <span class="tag">Hook Master</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CLIPS GRID -->
+    <section class="grid-section">
+        <div class="section-label">
+            <span>✦ The Collection</span>
+        </div>
+        <div class="clips-grid" id="clipsGrid">
+
+            <!-- CLIP 02 -->
+            <div class="clip-card reveal">
+                <div class="clip-number">#02</div>
+                <div class="clip-video-wrap">
+                    <iframe src="https://drive.google.com/file/d/16Ja34YhQm25QYPCqoznCCd2DLQ692_fh/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="clip-overlay">
+                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
+                    </div>
+                </div>
+                <div class="clip-caption">
+                    <div class="clip-title">The Hook Edit</div>
+                    <div class="clip-line">"Color graded to feel. Every cut lands like a heartbeat you didn't know was yours."</div>
+                </div>
+            </div>
+
+            <!-- CLIP 03 -->
+            <div class="clip-card reveal">
+                <div class="clip-number">#03</div>
+                <div class="clip-video-wrap">
+                    <iframe src="https://drive.google.com/file/d/13XhSfdNWuMbf_IMmUbMeAgf8FN8geQOm/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="clip-overlay">
+                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
+                    </div>
+                </div>
+                <div class="clip-caption">
+                    <div class="clip-title">Mood Architect</div>
+                    <div class="clip-line">"Not just an edit — a mood. A moment. A feeling that lingers long after the video ends."</div>
+                </div>
+            </div>
+
+            <!-- CLIP 04 -->
+            <div class="clip-card reveal">
+                <div class="clip-number">#04</div>
+                <div class="clip-video-wrap">
+                    <iframe src="https://drive.google.com/file/d/1jZqSWLFEWzFaQ2U1cVNawgGXEJ4ulssA/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="clip-overlay">
+                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
+                    </div>
+                </div>
+                <div class="clip-caption">
+                    <div class="clip-title">Blink & You'll Miss It</div>
+                    <div class="clip-line">"The hook hit before you blinked. That's not luck — that's six years of pure craft."</div>
+                </div>
+            </div>
+
+            <!-- CLIP 05 -->
+            <div class="clip-card reveal">
+                <div class="clip-number">#05</div>
+                <div class="clip-video-wrap">
+                    <iframe src="https://drive.google.com/file/d/1-WEpFTWOG8ZCBwq_YI0mK0UaurBCzMUv/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="clip-overlay">
+                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
+                    </div>
+                </div>
+                <div class="clip-caption">
+                    <div class="clip-title">Transitions Are Storytelling</div>
+                    <div class="clip-line">"Transitions aren't tricks. They're the invisible thread that makes viewers forget they're watching."</div>
+                </div>
+            </div>
+
+            <!-- CLIP 06 -->
+            <div class="clip-card reveal">
+                <div class="clip-number">#06</div>
+                <div class="clip-video-wrap">
+                    <iframe src="https://drive.google.com/file/d/1Z7gfcWvU6i3t0eV2IMK7PgjRWQnxL6Gk/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="clip-overlay">
+                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
+                    </div>
+                </div>
+                <div class="clip-caption">
+                    <div class="clip-title">Six Years in Seconds</div>
+                    <div class="clip-line">"Six years of obsession compressed into seconds. Every frame is a decision, not an accident."</div>
+                </div>
+            </div>
+
+            <!-- CLIP 07 -->
+            <div class="clip-card reveal">
+                <div class="clip-number">#07</div>
+                <div class="clip-video-wrap">
+                    <iframe src="https://drive.google.com/file/d/1XhGdu-BJn4tzoOASzW3iNNoH0jN9hbS3/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="clip-overlay">
+                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
+                    </div>
+                </div>
+                <div class="clip-caption">
+                    <div class="clip-title">Rhythm & Vision</div>
+                    <div class="clip-line">"This is what happens when rhythm meets vision — the edit breathes, pulses, and hits."</div>
+                </div>
+            </div>
+
+            <!-- CLIP 08 -->
+            <div class="clip-card reveal">
+                <div class="clip-number">#08</div>
+                <div class="clip-video-wrap">
+                    <iframe src="https://drive.google.com/file/d/1wYIHB_lIGXuxXGOKmenFEoqGGnA1rVTg/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="clip-overlay">
+                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
+                    </div>
+                </div>
+                <div class="clip-caption">
+                    <div class="clip-title">Made to Rewatch</div>
+                    <div class="clip-line">"Made to be rewatched. Built to be felt. The kind of edit you save and share without thinking."</div>
+                </div>
+            </div>
+
+            <!-- CLIP 09 -->
+            <div class="clip-card reveal">
+                <div class="clip-number">#09</div>
+                <div class="clip-video-wrap">
+                    <iframe src="https://drive.google.com/file/d/1HSicCZPG589ybax5HlRiZ0z5VCFh8zzv/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="clip-overlay">
+                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
+                    </div>
+                </div>
+                <div class="clip-caption">
+                    <div class="clip-title">The Scroll Stopper</div>
+                    <div class="clip-line">"The scroll stops here. Every. Single. Time. Not by accident — by design."</div>
+                </div>
+            </div>
+
+            <!-- CLIP 10 -->
+            <div class="clip-card reveal">
+                <div class="clip-number">#10</div>
+                <div class="clip-video-wrap">
+                    <iframe src="https://drive.google.com/file/d/1hCu_sd8RwsQEXhmD716Z4--Whu24U8ZH/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="clip-overlay">
+                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
+                    </div>
+                </div>
+                <div class="clip-caption">
+                    <div class="clip-title">Raw Becomes Art</div>
+                    <div class="clip-line">"Raw footage becomes art. The transformation happens in the edit — and this is the proof."</div>
+                </div>
+            </div>
+
+            <!-- CLIP 11 -->
+            <div class="clip-card reveal">
+                <div class="clip-number">#11</div>
+                <div class="clip-video-wrap">
+                    <iframe src="https://drive.google.com/file/d/1QJHIzX-hPNXCo_Kb7QPIUjZ6Vq4QKrLO/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="clip-overlay">
+                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
+                    </div>
+                </div>
+                <div class="clip-caption">
+                    <div class="clip-title">Sound Meets Soul</div>
+                    <div class="clip-line">"Sound design meets visual flow. When the music drops and the cut lands — goosebumps."</div>
+                </div>
+            </div>
+
+            <!-- CLIP 12 -->
+            <div class="clip-card reveal">
+                <div class="clip-number">#12</div>
+                <div class="clip-video-wrap">
+                    <iframe src="https://drive.google.com/file/d/13HFZAGE9lhYiTrLRXiloFdH0hz0JQ0q0/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="clip-overlay">
+                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
+                    </div>
+                </div>
+                <div class="clip-caption">
+                    <div class="clip-title">Effortless Pacing</div>
+                    <div class="clip-line">"Pacing so clean, it feels effortless. It isn't. It took years to make hard look this easy."</div>
+                </div>
+            </div>
+
+            <!-- CLIP 13 -->
+            <div class="clip-card reveal">
+                <div class="clip-number">#13</div>
+                <div class="clip-video-wrap">
+                    <iframe src="https://drive.google.com/file/d/1W4AkIhmezYIfXgqur52DCteVYQP5hz64/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="clip-overlay">
+                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
+                    </div>
+                </div>
+                <div class="clip-caption">
+                    <div class="clip-title">No Filler, Just Fire</div>
+                    <div class="clip-line">"Every frame earns its place. No filler, just fire. This is what zero-compromise editing looks like."</div>
+                </div>
+            </div>
+
+            <!-- CLIP 14 -->
+            <div class="clip-card reveal">
+                <div class="clip-number">#14</div>
+                <div class="clip-video-wrap">
+                    <iframe src="https://drive.google.com/file/d/1ldqs9D9rYx2qAYzT2x-Al0LYxnLaC4Dj/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="clip-overlay">
+                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
+                    </div>
+                </div>
+                <div class="clip-caption">
+                    <div class="clip-title">Creator Fuel</div>
+                    <div class="clip-line">"The kind of edit that makes creators lean in and say 'I need this for my content.' Every time."</div>
+                </div>
+            </div>
+
+            <!-- CLIP 15 -->
+            <div class="clip-card reveal">
+                <div class="clip-number">#15</div>
+                <div class="clip-video-wrap">
+                    <iframe src="https://drive.google.com/file/d/1jNTBVpBo8DKozkYCKm1ce2Gx6iBWAgYB/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="clip-overlay">
+                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
+                    </div>
+                </div>
+                <div class="clip-caption">
+                    <div class="clip-title">Speed & Silence</div>
+                    <div class="clip-line">"Slow it down, speed it up — the story always hits. Contrast is the language of the edit."</div>
+                </div>
+            </div>
+
+            <!-- CLIP 16 -->
+            <div class="clip-card reveal">
+                <div class="clip-number">#16</div>
+                <div class="clip-video-wrap">
+                    <iframe src="https://drive.google.com/file/d/1-Zhr1HJnOEo9d7xlqaPg4Jdxg2cfZ8S2/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="clip-overlay">
+                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
+                    </div>
+                </div>
+                <div class="clip-caption">
+                    <div class="clip-title">Unbroken Vibe</div>
+                    <div class="clip-line">"From one second to the next, the vibe never breaks. The energy flows like it was always meant to."</div>
+                </div>
+            </div>
+
+            <!-- CLIP 17 -->
+            <div class="clip-card reveal">
+                <div class="clip-number">#17</div>
+                <div class="clip-video-wrap">
+                    <iframe src="https://drive.google.com/file/d/1kleSJ1ZIw9EZOG8KC8PmLnP1HqSq9hQu/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="clip-overlay">
+                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
+                    </div>
+                </div>
+                <div class="clip-caption">
+                    <div class="clip-title">Engineered, Not Edited</div>
+                    <div class="clip-line">"This wasn't edited. It was engineered — every element calculated to create maximum impact."</div>
+                </div>
+            </div>
+
+            <!-- CLIP 18 -->
+            <div class="clip-card reveal">
+                <div class="clip-number">#18</div>
+                <div class="clip-video-wrap">
+                    <iframe src="https://drive.google.com/file/d/1DsGcOcmBB1I4fxHlReedcUA_fn52SBCB/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="clip-overlay">
+                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
+                    </div>
+                </div>
+                <div class="clip-caption">
+                    <div class="clip-title">Cinema Lives Here</div>
+                    <div class="clip-line">"Cinema lives in the details. And every detail here is intentional, purposeful, and precise."</div>
+                </div>
+            </div>
+
+            <!-- CLIP 19 -->
+            <div class="clip-card reveal">
+                <div class="clip-number">#19</div>
+                <div class="clip-video-wrap">
+                    <iframe src="https://drive.google.com/file/d/1Xay03KB5tsSxMmVwirK3NCJnDlLfavkC/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="clip-overlay">
+                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
+                    </div>
+                </div>
+                <div class="clip-caption">
+                    <div class="clip-title">The Perfect Short</div>
+                    <div class="clip-line">"Hook. Hold. Hit. The anatomy of a perfect short-form edit — executed flawlessly."</div>
+                </div>
+            </div>
+
+            <!-- CLIP 20 -->
+            <div class="clip-card reveal">
+                <div class="clip-number">#20</div>
+                <div class="clip-video-wrap">
+                    <iframe src="https://drive.google.com/file/d/1VAO8EfHgLlITsuig1gKbJ63W7Pf9wtS_/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="clip-overlay">
+                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
+                    </div>
+                </div>
+                <div class="clip-caption">
+                    <div class="clip-title">The Seamless Cut</div>
+                    <div class="clip-line">"When the cut is so smooth, they forget it happened. That's mastery — invisible and unforgettable."</div>
+                </div>
+            </div>
+
+            <!-- CLIP 21 -->
+            <div class="clip-card reveal">
+                <div class="clip-number">#21</div>
+                <div class="clip-video-wrap">
+                    <iframe src="https://drive.google.com/file/d/1oz4GZa0_Whl0TMparr5lnZ9LjjCz4Kdt/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="clip-overlay">
+                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
+                    </div>
+                </div>
+                <div class="clip-caption">
+                    <div class="clip-title">Energy in Every Frame</div>
+                    <div class="clip-line">"Energy in every frame. And silence that speaks louder than anything words could say."</div>
+                </div>
+            </div>
+
+            <!-- CLIP 22 -->
+            <div class="clip-card reveal">
+                <div class="clip-number">#22</div>
+                <div class="clip-video-wrap">
+                    <iframe src="https://drive.google.com/file/d/1PNeHyoieCI2Ajq-ckTit8E840_RZKNPY/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="clip-overlay">
+                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
+                    </div>
+                </div>
+                <div class="clip-caption">
+                    <div class="clip-title">Aesthetic Is the Message</div>
+                    <div class="clip-line">"The aesthetic is the message. When it looks this good, you don't need to say anything."</div>
+                </div>
+            </div>
+
+            <!-- CLIP 23 -->
+            <div class="clip-card reveal">
+                <div class="clip-number">#23</div>
+                <div class="clip-video-wrap">
+                    <iframe src="https://drive.google.com/file/d/1sFH5XrtXtk3FsMeRaexcymU7gcrap7Tz/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="clip-overlay">
+                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
+                    </div>
+                </div>
+                <div class="clip-caption">
+                    <div class="clip-title">Short Form. Long Impact.</div>
+                    <div class="clip-line">"Short form. Long impact. Zero compromise. This is what happens when you refuse to settle."</div>
+                </div>
+            </div>
+
+            <!-- CLIP 24 -->
+            <div class="clip-card reveal">
+                <div class="clip-number">#24</div>
+                <div class="clip-video-wrap">
+                    <iframe src="https://drive.google.com/file/d/1AjcQRcLhJ4zRCZN39ySBghE3b4y5gZgB/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="clip-overlay">
+                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
+                    </div>
+                </div>
+                <div class="clip-caption">
+                    <div class="clip-title">3 Seconds to 30</div>
+                    <div class="clip-line">"Crafted for the 3-second attention span. Held for 30. The hook is just the beginning."</div>
+                </div>
+            </div>
+
+            <!-- CLIP 25 -->
+            <div class="clip-card reveal">
+                <div class="clip-number">#25</div>
+                <div class="clip-video-wrap">
+                    <iframe src="https://drive.google.com/file/d/1p3zom_eQhzLXb6Wn1l8dqO9mCNTWKpAw/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="clip-overlay">
+                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
+                    </div>
+                </div>
+                <div class="clip-caption">
+                    <div class="clip-title">What 6 Years Looks Like</div>
+                    <div class="clip-line">"This is what 6 years looks like in motion. Not a portfolio piece — a statement of intent."</div>
+                </div>
+            </div>
+
+            <!-- CLIP 26 -->
+            <div class="clip-card reveal">
+                <div class="clip-number">#26</div>
+                <div class="clip-video-wrap">
+                    <iframe src="https://drive.google.com/file/d/1J_9_6QGezP8ENZ8xVCRbtvmaIeXLmosv/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="clip-overlay">
+                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
+                    </div>
+                </div>
+                <div class="clip-caption">
+                    <div class="clip-title">The Holy Trinity</div>
+                    <div class="clip-line">"Color. Cut. Cadence. The holy trinity of short-form editing — and this clip has all three."</div>
+                </div>
+            </div>
+
+            <!-- CLIP 27 -->
+            <div class="clip-card reveal">
+                <div class="clip-number">#27</div>
+                <div class="clip-video-wrap">
+                    <iframe src="https://drive.google.com/file/d/1U-CjgRihirifj4DRQVRZEI_wGw3ohl1x/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="clip-overlay">
+                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
+                    </div>
+                </div>
+                <div class="clip-caption">
+                    <div class="clip-title">Built for Virality</div>
+                    <div class="clip-line">"Built for virality. Designed for longevity. The rare edit that's trending today and timeless tomorrow."</div>
+                </div>
+            </div>
+
+            <!-- CLIP 28 -->
+            <div class="clip-card reveal">
+                <div class="clip-number">#28</div>
+                <div class="clip-video-wrap">
+                    <iframe src="https://drive.google.com/file/d/1tZ0raKa9-ZN18T6RfSw2lj7AHyYFSpT2/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="clip-overlay">
+                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
+                    </div>
+                </div>
+                <div class="clip-caption">
+                    <div class="clip-title">You Didn't Know You Needed This</div>
+                    <div class="clip-line">"The edit you didn't know you needed. Until now. Now you can't imagine your feed without it."</div>
+                </div>
+            </div>
+
+            <!-- CLIP 29 -->
+            <div class="clip-card reveal">
+                <div class="clip-number">#29</div>
+                <div class="clip-video-wrap">
+                    <iframe src="https://drive.google.com/file/d/1STGa0c4w5Ow1gs3LaT2_pileP5g6hkkb/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="clip-overlay">
+                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
+                    </div>
+                </div>
+                <div class="clip-caption">
+                    <div class="clip-title">Precision Over Perfection</div>
+                    <div class="clip-line">"Precision over perfection. Vibe over volume. This is editing with intention and soul."</div>
+                </div>
+            </div>
+
+            <!-- CLIP 30 -->
+            <div class="clip-card reveal">
+                <div class="clip-number">#30</div>
+                <div class="clip-video-wrap">
+                    <iframe src="https://drive.google.com/file/d/1W2XD8HABa1FF2XEgiyUfuNswtwB-AXO_/preview" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="clip-overlay">
+                        <div class="play-hint"><i data-lucide="play-circle" style="width:16px;height:16px;"></i> Hover to Play</div>
+                    </div>
+                </div>
+                <div class="clip-caption">
+                    <div class="clip-title">The Vault Doesn't Miss</div>
+                    <div class="clip-line">"Last frame, first impression. Every clip in this vault was chosen because it doesn't miss. Ever."</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section style="text-align:center; padding: 3rem 2rem 5rem; position:relative; z-index:1;">
+        <div class="gold-divider"></div>
+        <h2 style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(2rem,4vw,3rem); color:var(--text); margin: 1.5rem 0 1rem;">
+            Ready to Elevate Your Content?
+        </h2>
+        <p style="color:var(--subtext); max-width:500px; margin:0 auto 2rem; line-height:1.7;">
+            Every clip you just watched was crafted with obsession. Your content deserves the same treatment.
+        </p>
+        <a href="index.html#contact" style="display:inline-flex; align-items:center; gap:0.8rem; background:var(--gold); color:#000; padding:1rem 2.5rem; border-radius:50px; font-weight:700; text-decoration:none; font-size:1rem; letter-spacing:1px; transition: all 0.3s ease; box-shadow: 0 10px 40px rgba(212,175,55,0.3);"
+           onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 20px 50px rgba(212,175,55,0.4)'"
+           onmouseout="this.style.transform=''; this.style.boxShadow='0 10px 40px rgba(212,175,55,0.3)'">
+            <i data-lucide="message-circle" style="width:18px;height:18px;"></i>
+            Let's Work Together
+        </a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="vault-footer">
+        <p>© 2026 <a href="index.html">Cineflex</a> — Short-Form Excellence &nbsp;|&nbsp; Made with ♥ by <a href="https://instagram.com/Gagan_praj310" target="_blank">@Gagan_praj310</a></p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Scroll reveal animation
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, (i % 4) * 80);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        reveals.forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

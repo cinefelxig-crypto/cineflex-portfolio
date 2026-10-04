@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#050505">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Portfolio | Premium Design</title>
+    <meta name="description" content="A premium portfolio showcasing my work and skills.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Playfair+Display:ital,wght@1,600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <div class="background-overlay"></div>
+
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="#" class="logo">CINEFLEX</a>
+            <div class="hamburger" id="hamburger">
+                <i data-lucide="menu"></i>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Work</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section id="home" class="hero fade-in">
+            <div class="hero-content">
+                <span class="greeting">Hello, I am</span>
+                <h1 class="glitch" data-text="Dikshit">Dikshit</h1>
+                <p class="hero-description">Premium Short-Form Editing for Creators, YouTubers & SaaS Founders.</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">Book a Call</a>
+                    <a href="#projects" class="btn btn-secondary">View Showreel</a>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <i data-lucide="mouse"></i>
+                <span>Scroll Down</span>
+            </div>
+        </section>
+
+        <section id="about" class="about slide-up">
+            <div class="section-container glass-panel">
+                <h2>About Me</h2>
+                <div class="about-grid">
+                    <div class="about-text">
+                        <p>I am a college student based in Jaipur with 6 years of experience in video editing. I
+                            specialize in crafting engaging, high-retention content tailored for social media creators
+                            across platforms like YouTube, Instagram, and TikTok.</p>
+                        <div class="skills">
+                            <span class="skill-tag">Video Editing</span>
+                            <span class="skill-tag">Hook Optimization</span>
+                            <span class="skill-tag">Sound Design</span>
+                            <span class="skill-tag">Short-Form Expertise</span>
+                        </div>
+                    </div>
+                    <div class="about-stats">
+                        <div class="stat">
+                            <span class="stat-number">6</span>
+                            <span class="stat-label">Years Experience</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">100+</span>
+                            <span class="stat-label">Videos Edited</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="projects slide-up">
+            <div class="section-container">
+                <h2>THE VAULT</h2>
+                <p style="margin-bottom: 2rem;">6 Years of Expertise. A Curated Collection of Masterpieces.</p>
+                
+                <div class="vault-showcase glass-panel highlight-card" style="position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 6rem 2rem; background: linear-gradient(rgba(10,10,10,0.8), rgba(5,5,5,0.95)), url('background.jpg') center/cover;">
+                    <div style="z-index: 2; position: relative;">
+                        <i data-lucide="film" style="color: var(--accent-color); width: 48px; height: 48px; margin-bottom: 1.5rem; opacity: 0.8;"></i>
+                        <h3 style="font-size: 2.8rem; margin-bottom: 1rem; font-family: 'Playfair Display', serif; font-style: italic; color: var(--text-primary);">Exclusive Selected Works</h3>
+                        <p style="max-width: 600px; margin: 0 auto 3rem; font-size: 1.15rem; color: var(--text-secondary);">Discover my hand-picked collection of premium short-form edits. 15 meticulously crafted projects that define modern visual storytelling.</p>
+                        
+                        <a href="vault.html" style="font-size: 1.1rem; padding: 1.2rem 3rem; background: var(--accent-color); color: #000; border: none; font-weight: 700; display: inline-flex; align-items: center; gap: 0.8rem; border-radius: 50px; text-decoration: none; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 0 20px rgba(212,175,55,0.2);" onmouseover="this.style.transform='translateY(-5px) scale(1.02)'; this.style.boxShadow='0 15px 30px rgba(212,175,55,0.4)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 0 20px rgba(212,175,55,0.2)'">
+                            ENTER THE VAULT <i data-lucide="arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="services slide-up">
+            <div class="section-container">
+                <h2>SHORT-FORM EXPERTISE</h2>
+                <p style="margin-bottom: 3rem;">Everything you need to go viral on TikTok, Reels, and Shorts.</p>
+                <div class="project-grid" style="margin-top: 0;">
+                    <div class="glass-panel">
+                        <div class="project-info" style="transform: none; opacity: 1; padding: 0; background: none;">
+                            <i data-lucide="video" style="color: var(--accent-color); width: 32px; height: 32px; margin-bottom: 1rem;"></i>
+                            <h3 style="margin-bottom: 1rem;">Dynamic Visuals</h3>
+                            <p>Scroll-stopping animations, fast pacing, and premium B-roll selection that keeps viewers deeply engaged.</p>
+                        </div>
+                    </div>
+                    <div class="glass-panel">
+                        <div class="project-info" style="transform: none; opacity: 1; padding: 0; background: none;">
+                            <i data-lucide="music" style="color: var(--accent-color); width: 32px; height: 32px; margin-bottom: 1rem;"></i>
+                            <h3 style="margin-bottom: 1rem;">Sound & Captions</h3>
+                            <p>Immersive sound design and dynamic burn-in captions that capture attention even when the volume is muted.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact slide-up">
+            <div class="section-container glass-panel">
+                <h2>READY TO ELEVATE YOUR CONTENT?</h2>
+                <p class="contact-text">Book a call or send a message. I reply within 24 hours.</p>
+                <a href="mailto:cinefelx.ig@gmail.com?subject=Video Editing Inquiry" class="btn btn-primary">Say Hello</a>
+                <div class="social-links">
+                    <a href="#"><i data-lucide="instagram"></i></a>
+                    <a href="#"><i data-lucide="youtube"></i></a>
+                    <a href="#"><i data-lucide="twitter"></i></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 CINEFLEX. ALL RIGHTS RESERVED.</p>
+        <div class="developer-shoutout"
+            style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--glass-border); font-family: 'Playfair Display', serif;">
+            <p style="color: var(--accent-color); font-size: 1.2rem; font-style: italic; margin-bottom: 1rem;">Website
+                Designed & Developed by Gagan</p>
+            <div
+                style="display: flex; justify-content: center; gap: 2rem; font-family: 'Outfit', sans-serif; font-size: 0.95rem;">
+                <a href="https://wa.me/919511347627"
+                    style="color: var(--text-secondary); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: color 0.3s ease;"
+                    onmouseover="this.style.color='#25D366'" onmouseout="this.style.color='var(--text-secondary)'"><i
+                        data-lucide="message-circle" style="width: 18px; height: 18px;"></i> 9511347627</a>
+                <a href="mailto:gagann33nn@gmail.com"
+                    style="color: var(--text-secondary); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: color 0.3s ease;"
+                    onmouseover="this.style.color='var(--text-primary)'"
+                    onmouseout="this.style.color='var(--text-secondary)'"><i data-lucide="mail"
+                        style="width: 18px; height: 18px;"></i> gagann33nn@gmail.com</a>
+                <a href="https://instagram.com/Gagan_praj310" target="_blank" rel="noopener noreferrer"
+                    style="color: var(--text-secondary); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: color 0.3s ease;"
+                    onmouseover="this.style.color='#E1306C'" onmouseout="this.style.color='var(--text-secondary)'"><i data-lucide="instagram"
+                        style="width: 18px; height: 18px;"></i> Gagan_praj310</a>
+            </div>
+        </div>
+    </footer>
+
+    <a href="chat.html" class="chat-widget">
+        <i data-lucide="message-circle"></i>
+    </a>
+    <script src="script.js"></script>
+
+    <!-- Firebase Visitor Counter -->
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-database-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyD6jLHrDtHKLyZf6bqOjyNhlwgLBwt6p1U",
+            authDomain: "cineflex-chat.firebaseapp.com",
+            projectId: "cineflex-chat",
+            storageBucket: "cineflex-chat.firebasestorage.app",
+            messagingSenderId: "191605481586",
+            appId: "1:191605481586:web:3f69657ca659c0e157a2eb"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const visitorDb = firebase.database();
+
+        // Only count each unique browser session as 1 visit
+        if (!sessionStorage.getItem('visit_counted')) {
+            const now = new Date();
+            // Format: YYYY-MM-DD
+            const dateKey = now.toISOString().split('T')[0];
+            // Format: HH (00-23)
+            const hourKey = String(now.getHours()).padStart(2, '0');
+            
+            // Store under visits/YYYY-MM-DD/HH and also increment lifetime total
+            visitorDb.ref(`visits/${dateKey}/${hourKey}`).transaction(c => (c || 0) + 1);
+            visitorDb.ref('stats/totalViews').transaction(c => (c || 0) + 1);
+            sessionStorage.setItem('visit_counted', 'true');
+        }
+    </script>
+</body>
+
+</html>

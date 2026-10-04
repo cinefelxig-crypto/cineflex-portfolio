@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#050505">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Admin Dashboard — IG. SWASTIK</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-database-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg: #050505;
+            --surface: #0f0f0f;
+            --surface2: #1a1a1a;
+            --border: rgba(255,255,255,0.08);
+            --gold: #d4af37;
+            --gold-dim: rgba(212,175,55,0.15);
+            --text: #ffffff;
+            --subtext: #a0a0a0;
+            --danger: #e53e3e;
+            --success: #25D366;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family:'Outfit',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+
+        /* LOGIN */
+        #loginScreen {
+            position:fixed; inset:0;
+            background:var(--bg);
+            background-image:url('background.jpg');
+            background-size:cover; background-position:center;
+            display:flex; align-items:center; justify-content:center; z-index:9999;
+        }
+        #loginScreen::before {
+            content:''; position:absolute; inset:0;
+            background:rgba(5,5,5,0.88); backdrop-filter:blur(6px);
+        }
+        .login-card {
+            position:relative;
+            background:rgba(15,15,15,0.7);
+            backdrop-filter:blur(20px);
+            border:1px solid var(--border);
+            border-radius:24px; padding:3rem;
+            width:100%; max-width:420px; text-align:center;
+            box-shadow:0 40px 80px rgba(0,0,0,0.6);
+        }
+        .logo-text { font-family:'Playfair Display',serif; font-style:italic; color:var(--gold); font-size:1.8rem; margin-bottom:0.4rem; }
+        .login-card h2 { font-size:1rem; font-weight:400; color:var(--subtext); margin-bottom:2rem; }
+        .login-card input {
+            width:100%; background:var(--surface2);
+            border:1px solid var(--border); border-radius:12px;
+            padding:1rem 1.2rem; color:var(--text); font-size:1rem;
+            font-family:'Outfit',sans-serif; outline:none; margin-bottom:1rem;
+            transition:border-color 0.3s;
+        }
+        .login-card input:focus { border-color:var(--gold); }
+        .err { color:var(--danger); font-size:0.85rem; margin-bottom:1rem; display:none; }
+
+        /* BUTTONS */
+        .btn {
+            display:inline-flex; align-items:center; gap:0.5rem;
+            padding:0.75rem 1.5rem; border-radius:50px;
+            font-family:'Outfit',sans-serif; font-size:0.9rem; font-weight:600;
+            cursor:pointer; border:2px solid transparent; transition:all 0.3s ease;
+            text-decoration:none;
+        }
+        .btn-full { width:100%; justify-content:center; }
+        .btn-gold { background:var(--gold); color:#000; border-color:var(--gold); }
+        .btn-gold:hover { background:transparent; color:var(--gold); }
+        .btn-outline { background:transparent; color:var(--text); border-color:var(--border); }
+        .btn-outline:hover { border-color:var(--gold); color:var(--gold); }
+        .btn-danger { background:transparent; color:var(--danger); border-color:transparent; padding:0.4rem 0.8rem; border-radius:8px; font-size:0.8rem; }
+        .btn-danger:hover { background:rgba(229,62,62,0.1); }
+        .btn-wa { background:var(--success); color:#fff; border-color:var(--success); }
+        .btn-wa:hover { background:transparent; color:var(--success); }
+        .btn-sm { padding:0.4rem 0.9rem; font-size:0.8rem; border-radius:20px; }
+
+        /* DASHBOARD */
+        #dashboard { display:none; }
+        .topbar {
+            background:rgba(8,8,8,0.96); backdrop-filter:blur(20px);
+            border-bottom:1px solid var(--border);
+            padding:1rem 2rem; display:flex; align-items:center; justify-content:space-between;
+            position:sticky; top:0; z-index:100;
+        }
+        .topbar .brand { font-family:'Playfair Display',serif; font-style:italic; color:var(--gold); font-size:1.4rem; }
+        .topbar .brand span { font-family:'Outfit',sans-serif; font-style:normal; font-size:0.7rem; color:var(--subtext); display:block; letter-spacing:2px; text-transform:uppercase; }
+        .topbar-right { display:flex; gap:1rem; }
+
+        .main { max-width:1300px; margin:0 auto; padding:2rem; display:flex; flex-direction:column; gap:2rem; }
+
+        /* STATS */
+        .stats-row { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1.5rem; }
+        .stat-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:1.5rem; }
+        .stat-card .slabel { font-size:0.75rem; color:var(--subtext); text-transform:uppercase; letter-spacing:1.5px; }
+        .stat-card .svalue { font-size:2.5rem; font-weight:700; color:var(--gold); margin-top:0.5rem; line-height:1; }
+
+        /* CARD */
+        .card { background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:2rem; }
+        .card-title { display:flex; align-items:center; gap:0.6rem; font-size:1.1rem; font-weight:600; margin-bottom:1.5rem; }
+        .card-title svg { color:var(--gold); }
+
+        /* FORM */
+        .form-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; margin-bottom:1rem; }
+        .fg { display:flex; flex-direction:column; gap:0.4rem; }
+        .fg label { font-size:0.75rem; color:var(--subtext); text-transform:uppercase; letter-spacing:1px; }
+        .fg input, .fg select, .fg textarea {
+            background:var(--surface2); border:1px solid var(--border); border-radius:10px;
+            padding:0.8rem 1rem; color:var(--text); font-size:0.95rem;
+            font-family:'Outfit',sans-serif; outline:none; transition:border-color 0.3s;
+        }
+        .fg input:focus, .fg select:focus, .fg textarea:focus { border-color:var(--gold); }
+        .fg select option { background:var(--surface2); }
+        .fg textarea { resize:vertical; min-height:160px; }
+
+        /* TABLE */
+        .table-wrap { overflow-x:auto; }
+        table { width:100%; border-collapse:collapse; font-size:0.88rem; }
+        th {
+            text-align:left; padding:0.7rem 1rem;
+            background:var(--surface2); color:var(--subtext);
+            font-size:0.72rem; text-transform:uppercase; letter-spacing:1.5px; font-weight:500;
+        }
+        th:first-child { border-radius:10px 0 0 10px; }
+        th:last-child  { border-radius:0 10px 10px 0; }
+        td { padding:0.9rem 1rem; border-bottom:1px solid var(--border); vertical-align:middle; }
+        tr:last-child td { border-bottom:none; }
+        tr:hover td { background:rgba(255,255,255,0.015); }
+
+        .badge { display:inline-flex; align-items:center; gap:0.3rem; padding:0.2rem 0.6rem; border-radius:50px; font-size:0.72rem; font-weight:500; }
+        .b-yt  { background:rgba(255,0,0,0.12);    color:#ff8080; }
+        .b-ig  { background:rgba(225,100,180,0.12); color:#f7a0dc; }
+        .b-tt  { background:rgba(0,200,200,0.12);  color:#80ffe8; }
+        .b-tw  { background:rgba(29,161,242,0.12); color:#63c5f7; }
+        .b-ot  { background:var(--gold-dim);        color:var(--gold); }
+
+        .empty-state { text-align:center; padding:3rem 0; color:var(--subtext); }
+
+        .search-bar {
+            background:var(--surface2); border:1px solid var(--border); border-radius:10px;
+            padding:0.6rem 1rem; color:var(--text); font-family:'Outfit',sans-serif;
+            outline:none; width:280px; font-size:0.9rem;
+        }
+        .search-bar:focus { border-color:var(--gold); }
+
+        .card-header { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.5rem; }
+
+        /* TOAST */
+        .toast {
+            position:fixed; bottom:2rem; right:2rem;
+            background:var(--gold); color:#000; font-weight:700;
+            padding:0.8rem 1.5rem; border-radius:12px; font-size:0.9rem;
+            z-index:99999; transform:translateY(80px); opacity:0;
+            transition:all 0.4s cubic-bezier(0.16,1,0.3,1);
+        }
+        .toast.show { transform:translateY(0); opacity:1; }
+
+        @media(max-width:600px) {
+            .topbar-right { gap:0.5rem; }
+            .main { padding:1rem; }
+            .card { padding:1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ─── LOGIN ─── -->
+<div id="loginScreen">
+    <div class="login-card">
+        <div class="logo-text">CINEFLEX</div>
+        <h2>Admin Access Only</h2>
+        <input type="text" id="loginUser" placeholder="Username" />
+        <input type="password" id="loginPass" placeholder="Password" onkeypress="if(event.key==='Enter')doLogin()" />
+        <p class="err" id="loginErr">Incorrect username or password.</p>
+        <button class="btn btn-gold btn-full" onclick="doLogin()">
+            <i data-lucide="log-in" style="width:16px;height:16px;"></i> Login
+        </button>
+    </div>
+</div>
+
+<!-- ─── DASHBOARD ─── -->
+<div id="dashboard">
+    <nav class="topbar">
+        <div class="brand">
+            CINEFLEX
+            <span>Admin Dashboard</span>
+        </div>
+        <div class="topbar-right">
+            <a href="index.html" class="btn btn-outline btn-sm">
+                <i data-lucide="globe" style="width:14px;height:14px;"></i> Portfolio
+            </a>
+            <button class="btn btn-outline btn-sm" onclick="logout()">
+                <i data-lucide="log-out" style="width:14px;height:14px;"></i> Logout
+            </button>
+        </div>
+    </nav>
+
+    <div class="main">
+
+        <!-- STATS -->
+        <div class="stats-row">
+            <div class="stat-card" style="border-color:rgba(212,175,55,0.5); background: linear-gradient(135deg, var(--surface), rgba(212,175,55,0.05));">
+                <div class="slabel" style="color:var(--gold);">👁️ Portfolio Views</div>
+                <div class="svalue" id="stViews" style="font-size:3rem;">—</div>
+            </div>
+            <div class="stat-card">
+                <div class="slabel">Total Clients</div>
+                <div class="svalue" id="stTotal">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="slabel">YouTube</div>
+                <div class="svalue" id="stYt">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="slabel">Instagram</div>
+                <div class="svalue" id="stIg">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="slabel">TikTok</div>
+                <div class="svalue" id="stTt">0</div>
+            </div>
+            <div class="stat-card" style="border-color:rgba(212,175,55,0.4);">
+                <div class="slabel">Active Chats</div>
+                <div class="svalue" id="stUnread">0</div>
+            </div>
+        </div>
+
+        <!-- ANALYTICS BAR CHART -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title" style="margin-bottom:0;"><i data-lucide="bar-chart-2"></i> Portfolio Analytics</div>
+                <div style="display:flex; gap:0.5rem;">
+                    <button class="btn btn-sm" id="tabToday" onclick="switchTab('today')" style="background:var(--gold);color:#000;font-weight:700;">Today</button>
+                    <button class="btn btn-sm btn-outline" id="tabWeekly" onclick="switchTab('weekly')">Weekly</button>
+                    <button class="btn btn-sm btn-outline" id="tabMonthly" onclick="switchTab('monthly')">Monthly</button>
+                    <button class="btn btn-sm btn-outline" id="tabLifetime" onclick="switchTab('lifetime')">Lifetime</button>
+                </div>
+            </div>
+            <div style="display:flex; gap:2rem; margin-bottom:1.5rem; flex-wrap:wrap;">
+                <div><div style="font-size:0.7rem;color:var(--subtext);text-transform:uppercase;letter-spacing:1px;">Today</div><div id="sumToday" style="font-size:1.8rem;font-weight:700;color:var(--gold);">—</div></div>
+                <div><div style="font-size:0.7rem;color:var(--subtext);text-transform:uppercase;letter-spacing:1px;">This Week</div><div id="sumWeek" style="font-size:1.8rem;font-weight:700;color:var(--gold);">—</div></div>
+                <div><div style="font-size:0.7rem;color:var(--subtext);text-transform:uppercase;letter-spacing:1px;">This Month</div><div id="sumMonth" style="font-size:1.8rem;font-weight:700;color:var(--gold);">—</div></div>
+                <div><div style="font-size:0.7rem;color:var(--subtext);text-transform:uppercase;letter-spacing:1px;">All Time</div><div id="sumLifetime" style="font-size:1.8rem;font-weight:700;color:var(--gold);">—</div></div>
+            </div>
+            <div style="position:relative; height:260px;">
+                <canvas id="analyticsChart"></canvas>
+            </div>
+            <div style="font-size:0.72rem;color:var(--subtext);margin-top:1rem;text-align:right;">Resets daily at 12:00 AM &bull; Updates in real-time</div>
+        </div>
+
+        <!-- INBOX -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title" style="margin-bottom:0;"><i data-lucide="message-square"></i> Client Inbox</div>
+                <button class="btn btn-danger btn-sm" onclick="clearInbox()"><i data-lucide="trash-2" style="width:13px;height:13px;"></i> Clear All</button>
+            </div>
+            <div id="inboxList"><div class="empty-state"><i data-lucide="inbox" style="width:48px;height:48px;display:block;margin:0 auto 1rem;opacity:0.2;"></i><p>No messages yet. They will appear here when clients send one.</p></div></div>
+        </div>
+
+        <!-- ADD CLIENT -->
+        <div class="card">
+            <div class="card-title"><i data-lucide="user-plus"></i> Add New Client</div>
+            <div class="form-grid">
+                <div class="fg">
+                    <label>Client Name</label>
+                    <input id="cName" type="text" placeholder="e.g. Raj Sharma" />
+                </div>
+                <div class="fg">
+                    <label>Platform</label>
+                    <select id="cPlatform">
+                        <option>YouTube</option>
+                        <option>Instagram</option>
+                        <option>TikTok</option>
+                        <option>Twitter/X</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="fg">
+                    <label>Channel / ID Name</label>
+                    <input id="cId" type="text" placeholder="e.g. @rajsharma" />
+                </div>
+                <div class="fg">
+                    <label>Client Email</label>
+                    <input id="cEmail" type="email" placeholder="e.g. raj@gmail.com" />
+                </div>
+                <div class="fg">
+                    <label>Notes (optional)</label>
+                    <input id="cNotes" type="text" placeholder="e.g. Prefers 60s reels" />
+                </div>
+            </div>
+            <button class="btn btn-gold" onclick="addClient()">
+                <i data-lucide="plus" style="width:15px;height:15px;"></i> Save Client
+            </button>
+        </div>
+
+        <!-- CLIENT INVENTORY TABLE -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title" style="margin-bottom:0;"><i data-lucide="users"></i> Client Inventory</div>
+                <input class="search-bar" id="searchInput" placeholder="Search name, platform, email..." oninput="renderTable()" />
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Client Name</th>
+                            <th>Platform</th>
+                            <th>Channel / ID</th>
+                            <th>Email</th>
+                            <th>Notes</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="clientTable"></tbody>
+                </table>
+                <div id="emptyState" class="empty-state" style="display:none;">
+                    <i data-lucide="inbox" style="width:48px;height:48px;display:block;margin:0 auto 1rem;opacity:0.2;"></i>
+                    <p>No clients yet. Add your first one above!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- COLD EMAIL COMPOSER -->
+        <div class="card">
+            <div class="card-title"><i data-lucide="mail"></i> Cold Email Composer</div>
+            <p style="color:var(--subtext);font-size:0.9rem;margin-bottom:1.5rem;">
+                Write your email below. Hit <strong style="color:var(--gold);">Send via Email App</strong> and it will open ready to send — just hit send! 
+                Click <strong style="color:var(--gold);">Use Client Email</strong> in the table above to auto-fill the To field.
+            </p>
+            <div class="form-grid">
+                <div class="fg">
+                    <label>To (Client Email)</label>
+                    <input id="emailTo" type="email" placeholder="client@email.com" />
+                </div>
+                <div class="fg">
+                    <label>Subject</label>
+                    <input id="emailSubject" type="text" value="Let's Work Together — Premium Short-Form Editing" />
+                </div>
+            </div>
+            <div class="fg" style="margin-bottom:1.5rem;">
+                <label>Message Body</label>
+                <textarea id="emailBody">Hey [Name]!
+
+I came across your channel and I think your content has huge potential. I'm Dikshit, a short-form video editor with 6+ years of experience working with creators on YouTube, Instagram, and TikTok.
+
+I'd love to help you create high-retention, scroll-stopping edits that grow your audience fast.
+
+Here's what I offer:
+• Short-form editing (up to 60s) — ₹1000/video
+• Burn-in Captions + Basic Color + 2 Revisions + 48-Hour Turnaround
+
+Would love to hop on a quick call or chat! Just reply to this email.
+
+Best,
+Dikshit & Gagan
+IG. SWASTIK</textarea>
+            </div>
+            <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+                <button class="btn btn-gold" onclick="sendEmail()">
+                    <i data-lucide="send" style="width:15px;height:15px;"></i> Send via Email App
+                </button>
+                <button class="btn btn-outline" onclick="copyEmail()">
+                    <i data-lucide="copy" style="width:15px;height:15px;"></i> Copy Message
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+    lucide.createIcons();
+
+    // ── AUTH ──
+    const USERS = { 'cineflex': 'DG0_2026' };
+
+    function doLogin() {
+        const u = document.getElementById('loginUser').value.trim().toLowerCase();
+        const p = document.getElementById('loginPass').value;
+        if (USERS[u] && USERS[u] === p) {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            renderTable(); updateStats(); renderInbox(); lucide.createIcons();
+        } else {
+            document.getElementById('loginErr').style.display = 'block';
+        }
+    }
+
+    function logout() {
+        document.getElementById('loginScreen').style.display = 'flex';
+        document.getElementById('dashboard').style.display = 'none';
+        document.getElementById('loginUser').value = '';
+        document.getElementById('loginPass').value = '';
+    }
+
+    // ── DATA ──
+    function getClients() { return JSON.parse(localStorage.getItem('igswastik_clients') || '[]'); }
+    function saveClients(c) { localStorage.setItem('igswastik_clients', JSON.stringify(c)); }
+
+    // Initialize Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyD6jLHrDtHKLyZf6bqOjyNhlwgLBwt6p1U",
+        authDomain: "cineflex-chat.firebaseapp.com",
+        projectId: "cineflex-chat",
+        storageBucket: "cineflex-chat.firebasestorage.app",
+        messagingSenderId: "191605481586",
+        appId: "1:191605481586:web:3f69657ca659c0e157a2eb"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // Real-time Portfolio Views counter from Firebase
+    db.ref('stats/totalViews').on('value', (snap) => {
+        document.getElementById('stViews').textContent = snap.val() || 0;
+    });
+
+    // ── ANALYTICS ──
+    let analyticsChart = null;
+    let visitsData = {};
+    let activeTab = 'today';
+
+    // Helper: YYYY-MM-DD for a date offset by N days from today
+    function dateKey(offsetDays = 0) {
+        const d = new Date();
+        d.setDate(d.getDate() + offsetDays);
+        return d.toISOString().split('T')[0];
+    }
+
+    // Sum all hourly values for a given dateKey
+    function sumDay(dayData) {
+        if (!dayData) return 0;
+        return Object.values(dayData).reduce((a, b) => a + b, 0);
+    }
+
+    // Listen to all visits data in real-time
+    db.ref('visits').on('value', (snap) => {
+        visitsData = snap.val() || {};
+        updateSummaryStats();
+        renderChart(activeTab);
+    });
+
+    function updateSummaryStats() {
+        // Today
+        const todaySum = sumDay(visitsData[dateKey(0)]);
+        document.getElementById('sumToday').textContent = todaySum;
+
+        // This week (last 7 days including today)
+        let weekSum = 0;
+        for (let i = 0; i < 7; i++) weekSum += sumDay(visitsData[dateKey(-i)]);
+        document.getElementById('sumWeek').textContent = weekSum;
+
+        // This month (last 30 days)
+        let monthSum = 0;
+        for (let i = 0; i < 30; i++) monthSum += sumDay(visitsData[dateKey(-i)]);
+        document.getElementById('sumMonth').textContent = monthSum;
+
+        // Lifetime
+        let lifetimeSum = 0;
+        Object.values(visitsData).forEach(dayData => { lifetimeSum += sumDay(dayData); });
+        document.getElementById('sumLifetime').textContent = lifetimeSum;
+    }
+
+    function switchTab(tab) {
+        activeTab = tab;
+        // Update button styles
+        ['today','weekly','monthly','lifetime'].forEach(t => {
+            const btn = document.getElementById('tab' + t.charAt(0).toUpperCase() + t.slice(1));
+            if (!btn) return;
+            if (t === tab) {
+                btn.style.background = 'var(--gold)';
+                btn.style.color = '#000';
+                btn.style.fontWeight = '700';
+                btn.classList.remove('btn-outline');
+            } else {
+                btn.style.background = '';
+                btn.style.color = '';
+                btn.style.fontWeight = '';
+                btn.classList.add('btn-outline');
+            }
+        });
+        renderChart(tab);
+    }
+
+    function renderChart(tab) {
+        let labels = [], dataPoints = [], chartLabel = '';
+
+        if (tab === 'today') {
+            chartLabel = "Today's Views (by Hour)";
+            const todayData = visitsData[dateKey(0)] || {};
+            for (let h = 0; h < 24; h++) {
+                const hKey = String(h).padStart(2, '0');
+                labels.push(h === 0 ? '12am' : h < 12 ? h+'am' : h === 12 ? '12pm' : (h-12)+'pm');
+                dataPoints.push(todayData[hKey] || 0);
+            }
+        } else if (tab === 'weekly') {
+            chartLabel = 'Last 7 Days';
+            const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+            for (let i = 6; i >= 0; i--) {
+                const d = new Date(); d.setDate(d.getDate() - i);
+                const key = d.toISOString().split('T')[0];
+                labels.push(days[d.getDay()]);
+                dataPoints.push(sumDay(visitsData[key]));
+            }
+        } else if (tab === 'monthly') {
+            chartLabel = 'Last 30 Days';
+            for (let i = 29; i >= 0; i--) {
+                const d = new Date(); d.setDate(d.getDate() - i);
+                const key = d.toISOString().split('T')[0];
+                labels.push(d.getDate() + '/' + (d.getMonth()+1));
+                dataPoints.push(sumDay(visitsData[key]));
+            }
+        } else if (tab === 'lifetime') {
+            chartLabel = 'All Time (Monthly)';
+            // Group all visits by month (YYYY-MM)
+            const monthly = {};
+            Object.keys(visitsData).sort().forEach(dateStr => {
+                const monthStr = dateStr.substring(0, 7);
+                monthly[monthStr] = (monthly[monthStr] || 0) + sumDay(visitsData[dateStr]);
+            });
+            const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+            Object.keys(monthly).sort().forEach(m => {
+                const [y, mo] = m.split('-');
+                labels.push(monthNames[parseInt(mo)-1] + ' ' + y.slice(2));
+                dataPoints.push(monthly[m]);
+            });
+            if (labels.length === 0) { labels = ['No data yet']; dataPoints = [0]; }
+        }
+
+        const ctx = document.getElementById('analyticsChart').getContext('2d');
+        if (analyticsChart) analyticsChart.destroy();
+
+        analyticsChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels,
+                datasets: [{
+                    label: chartLabel,
+                    data: dataPoints,
+                    backgroundColor: dataPoints.map((v, i) => v === Math.max(...dataPoints) && v > 0 ? 'rgba(212,175,55,0.9)' : 'rgba(212,175,55,0.25)'),
+                    borderColor: 'rgba(212,175,55,0.8)',
+                    borderWidth: 1,
+                    borderRadius: 6,
+                    borderSkipped: false,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#111',
+                        titleColor: '#d4af37',
+                        bodyColor: '#fff',
+                        borderColor: 'rgba(212,175,55,0.4)',
+                        borderWidth: 1,
+                        padding: 10,
+                        callbacks: {
+                            label: ctx => ` ${ctx.parsed.y} view${ctx.parsed.y !== 1 ? 's' : ''}`
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { color: 'rgba(255,255,255,0.04)' },
+                        ticks: { color: '#666', font: { family: 'Outfit', size: 11 }, maxRotation: 45 }
+                    },
+                    y: {
+                        grid: { color: 'rgba(255,255,255,0.04)' },
+                        ticks: { color: '#666', font: { family: 'Outfit' }, stepSize: 1, beginAtZero: true },
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    let allChats = {};
+    let activeChatId = null;
+
+    // Real-time listener for Firebase Database
+    db.ref('chats').on('value', (snapshot) => {
+        allChats = snapshot.val() || {};
+        
+        // Update total active chats stat
+        document.getElementById('stUnread').textContent = Object.keys(allChats).length;
+
+        if (document.getElementById('dashboard').style.display === 'block') {
+            renderInbox();
+        }
+    });
+
+    function renderInbox() {
+        const box = document.getElementById('inboxList');
+        const chatKeys = Object.keys(allChats).sort((a, b) => (allChats[b].lastUpdated || 0) - (allChats[a].lastUpdated || 0));
+
+        if (chatKeys.length === 0) {
+            box.innerHTML = '<div class="empty-state"><i data-lucide="inbox" style="width:48px;height:48px;display:block;margin:0 auto 1rem;opacity:0.2;"></i><p>No messages yet.</p></div>';
+            lucide.createIcons(); return;
+        }
+
+        let html = `<div style="display: flex; gap: 0; height: 450px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 1rem;">`;
+        
+        // Sidebar: List of chats
+        html += `<div style="width: 35%; background: var(--surface2); border-right: 1px solid var(--border); overflow-y: auto;">`;
+        chatKeys.forEach(key => {
+            const isActive = key === activeChatId;
+            html += `
+            <div onclick="openChat('${key}')" style="padding: 1.2rem 1rem; cursor: pointer; border-bottom: 1px solid var(--border); background: ${isActive ? 'var(--gold-dim)' : 'transparent'}; transition: background 0.2s; display: flex; align-items: center; gap: 10px;">
+                <div style="width: 35px; height: 35px; border-radius: 50%; background: ${isActive ? 'var(--gold)' : 'var(--bg)'}; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-weight: 700; color: ${isActive ? '#000' : 'var(--text)'}; font-size: 0.8rem;">
+                    V${key.substring(7, 9)}
+                </div>
+                <div>
+                    <div style="font-weight: 600; font-size: 0.95rem; color: ${isActive ? 'var(--gold)' : 'var(--text)'};">Visitor ${key.substring(7, 11)}</div>
+                    <div style="font-size: 0.75rem; color: var(--subtext); margin-top: 4px;">Click to view chat</div>
+                </div>
+            </div>`;
+        });
+        html += `</div>`;
+
+        // Main Chat Area
+        html += `<div style="flex: 1; display: flex; flex-direction: column; background: var(--bg);">`;
+        if (activeChatId && allChats[activeChatId]) {
+            html += `<div style="flex: 1; overflow-y: auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 12px;" id="adminChatArea">`;
+            const msgsObj = allChats[activeChatId].messages || {};
+            const msgs = Object.keys(msgsObj).map(k => msgsObj[k]);
+            
+            if (msgs.length === 0) {
+                html += `<div style="text-align: center; color: var(--subtext); font-size: 0.9rem; margin-top: 2rem;">No messages yet.</div>`;
+            }
+
+            msgs.forEach(m => {
+                const isAdmin = m.sender === 'admin';
+                html += `
+                <div style="align-self: ${isAdmin ? 'flex-end' : 'flex-start'}; background: ${isAdmin ? 'var(--gold-dim)' : 'var(--surface2)'}; padding: 10px 14px; border-radius: 12px; max-width: 80%; border: 1px solid ${isAdmin ? 'var(--gold)' : 'var(--border)'};">
+                    <div style="font-size: 0.7rem; color: var(--subtext); margin-bottom: 6px; display: flex; justify-content: space-between;">
+                        <strong>${isAdmin ? 'You' : 'Client'}</strong>
+                        <span style="margin-left: 15px;">${m.time}</span>
+                    </div>
+                    <div style="font-size: 0.9rem; line-height: 1.4;">${m.text}</div>
+                </div>
+                `;
+            });
+            html += `</div>`;
+            html += `
+            <div style="padding: 1rem; border-top: 1px solid var(--border); display: flex; gap: 10px; background: var(--surface2);">
+                <input type="text" id="adminReplyInput" style="flex:1; background:var(--bg); border:1px solid var(--border); border-radius:24px; padding:0.7rem 1.2rem; color:var(--text); outline:none; font-family:'Outfit',sans-serif;" placeholder="Reply to Visitor ${activeChatId.substring(7, 11)}..." onkeypress="if(event.key==='Enter') sendAdminReply()">
+                <button class="btn btn-gold" style="padding: 0.7rem; border-radius: 50%; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center;" onclick="sendAdminReply()"><i data-lucide="send" style="width:16px;height:16px;"></i></button>
+            </div>
+            `;
+        } else {
+            html += `<div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--subtext); font-size: 0.95rem;"><i data-lucide="message-circle" style="width: 48px; height: 48px; margin-bottom: 1rem; opacity: 0.2;"></i>Select a chat from the left to start messaging</div>`;
+        }
+        html += `</div></div>`;
+
+        box.innerHTML = html;
+        if (activeChatId) {
+            const chatArea = document.getElementById('adminChatArea');
+            if (chatArea) chatArea.scrollTop = chatArea.scrollHeight;
+        }
+        lucide.createIcons();
+    }
+
+    function openChat(id) {
+        activeChatId = id;
+        renderInbox();
+    }
+
+    function sendAdminReply() {
+        if (!activeChatId) return;
+        const input = document.getElementById('adminReplyInput');
+        const text = input.value.trim();
+        if(text !== '') {
+            db.ref('chats/' + activeChatId + '/messages').push({
+                text: text,
+                time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+                sender: 'admin',
+                timestamp: firebase.database.ServerValue.TIMESTAMP
+            });
+            db.ref('chats/' + activeChatId).update({
+                lastUpdated: firebase.database.ServerValue.TIMESTAMP
+            });
+            input.value = '';
+        }
+    }
+
+    function clearInbox() {
+        if (!confirm('Clear all messages? This cannot be undone.')) return;
+        db.ref('chats').remove();
+        activeChatId = null;
+        showToast('Inbox cleared.');
+    }
+
+    function addClient() {
+        const name     = document.getElementById('cName').value.trim();
+        const platform = document.getElementById('cPlatform').value;
+        const channelId= document.getElementById('cId').value.trim();
+        const email    = document.getElementById('cEmail').value.trim();
+        const notes    = document.getElementById('cNotes').value.trim();
+        if (!name || !email) { showToast('⚠️ Name and Email are required!'); return; }
+        const clients = getClients();
+        clients.unshift({ id: Date.now(), name, platform, channelId, email, notes });
+        saveClients(clients);
+        ['cName','cId','cEmail','cNotes'].forEach(id => document.getElementById(id).value = '');
+        renderTable(); updateStats();
+        showToast('✓ Client saved!');
+    }
+
+    function deleteClient(id) {
+        if (!confirm('Delete this client? This cannot be undone.')) return;
+        saveClients(getClients().filter(c => c.id !== id));
+        renderTable(); updateStats();
+        showToast('Client deleted.');
+    }
+
+    function useClientEmail(email, name) {
+        document.getElementById('emailTo').value = email;
+        const body = document.getElementById('emailBody');
+        body.value = body.value.replace(/\[Name\]/g, name);
+        document.querySelector('.card:last-of-type').scrollIntoView({ behavior: 'smooth' });
+        showToast('📧 Email filled in composer below!');
+    }
+
+    function badgeClass(p) {
+        const m = { 'YouTube':'b-yt','Instagram':'b-ig','TikTok':'b-tt','Twitter/X':'b-tw' };
+        return m[p] || 'b-ot';
+    }
+
+    function renderTable() {
+        const q = (document.getElementById('searchInput')?.value || '').toLowerCase();
+        const all = getClients();
+        const clients = q ? all.filter(c =>
+            c.name.toLowerCase().includes(q) ||
+            c.platform.toLowerCase().includes(q) ||
+            c.email.toLowerCase().includes(q) ||
+            (c.channelId||'').toLowerCase().includes(q)
+        ) : all;
+
+        const tbody = document.getElementById('clientTable');
+        const empty = document.getElementById('emptyState');
+
+        if (clients.length === 0) {
+            tbody.innerHTML = '';
+            empty.style.display = 'block';
+            lucide.createIcons(); return;
+        }
+
+        empty.style.display = 'none';
+        tbody.innerHTML = clients.map((c, i) => `
+            <tr>
+                <td style="color:var(--subtext);">${i+1}</td>
+                <td><strong>${c.name}</strong></td>
+                <td><span class="badge ${badgeClass(c.platform)}">${c.platform}</span></td>
+                <td style="color:var(--subtext);">${c.channelId || '—'}</td>
+                <td><a href="mailto:${c.email}" style="color:var(--gold);text-decoration:none;">${c.email}</a></td>
+                <td style="color:var(--subtext);font-size:0.82rem;">${c.notes || '—'}</td>
+                <td>
+                    <div style="display:flex;gap:0.4rem;flex-wrap:wrap;">
+                        <button class="btn btn-sm btn-outline" onclick="useClientEmail('${c.email}','${c.name}')">
+                            <i data-lucide="mail" style="width:13px;height:13px;"></i> Email
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteClient(${c.id})">
+                            <i data-lucide="trash-2" style="width:13px;height:13px;"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+        lucide.createIcons();
+    }
+
+    function updateStats() {
+        const c = getClients();
+        document.getElementById('stTotal').textContent = c.length;
+        document.getElementById('stYt').textContent = c.filter(x => x.platform === 'YouTube').length;
+        document.getElementById('stIg').textContent = c.filter(x => x.platform === 'Instagram').length;
+        document.getElementById('stTt').textContent = c.filter(x => x.platform === 'TikTok').length;
+    }
+
+    // ── EMAIL ──
+    function sendEmail() {
+        const to      = document.getElementById('emailTo').value.trim();
+        const subject = encodeURIComponent(document.getElementById('emailSubject').value);
+        const body    = encodeURIComponent(document.getElementById('emailBody').value);
+        if (!to) { showToast('⚠️ Enter a client email first!'); return; }
+        window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+    }
+
+    function copyEmail() {
+        navigator.clipboard.writeText(document.getElementById('emailBody').value)
+            .then(() => showToast('✓ Message copied!'));
+    }
+
+    // ── TOAST ──
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 3000);
+    }
+</script>
+</body>
+</html>
